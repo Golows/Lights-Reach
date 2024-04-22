@@ -148,7 +148,6 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger(deathTrigger);
         rb.velocity = Vector3.zero;
-        GetComponent<BoxCollider2D>().enabled = false;
         GameObject xpOrb = ObjectPoolManager.SpawnObject(GameController.instance.xpOrb, xpDropPosition.position, Quaternion.identity, ObjectPoolManager.PoolType.None);
         GameController.instance.levelManager.AddToOrbList(xpOrb.GetComponent<XPOrb>());
         yield return new WaitForSeconds(waitDeath);
@@ -156,17 +155,26 @@ public class Enemy : MonoBehaviour
         ObjectPoolManager.RemoveObjectToPool(gameObject);
     }
 
-    public void TakeDamage(float damage)
+    public bool TakeDamage(float damage, bool crit, float damageMultiplier)
     {
-        GameController.instance.uiManager.ShowDamage(transform, (int)damage);
+        if (currentHealth < 0)
+        {
+            return false;
+        }
 
         if(currentHealth - damage > 0)
         {
             currentHealth -= damage;
+            GameController.instance.uiManager.ShowDamage(transform, (int)damage, crit, damageMultiplier);
+            return true;
         }
         else
         {
+            currentHealth -= damage;
+            GetComponent<BoxCollider2D>().enabled = false;
+            GameController.instance.uiManager.ShowDamage(transform, (int)damage, crit, damageMultiplier);
             StartCoroutine(Death());
+            return true;
         }
     }
 }

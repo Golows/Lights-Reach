@@ -365,6 +365,8 @@ MonoBehaviour:
   HP: {fileID: 1733731625}
   damageText: {fileID: 8476939865805061792, guid: badca3892b552d7428cff8882bf3182e, type: 3}
   UI: {fileID: 1847281569}
+  minMultiplier: 0.93
+  maxMultiplier: 1.07
 --- !u!114 &1283708091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,7 +404,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7ddd8b98be01a644a5344df328e8ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xpOrbs: []
+  currentXp: 0
+  requiredXp: 0
+  requiredXpAdditive: 0
+  currentLevel: 0
+  multiplier: 1.02
+  baseXpMult: 5
+  baseXpAdd: 70
+  afterMultiplyAdd: 0
 --- !u!1 &1733655249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2976,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2046443534823197256, guid: 2f623245098228142829742a29e8d941, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.042400114
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2046443534823197256, guid: 2f623245098228142829742a29e8d941, type: 3}
       propertyPath: m_LocalRotation.w

@@ -11,6 +11,7 @@ public class XPOrb : MonoBehaviour
     private Transform playerTransform;
     private Rigidbody2D rb;
     [SerializeField] private float speed = 10;
+    [SerializeField] private int xpAmount;
     [SerializeField] private Light2D lightAura;
 
     [SerializeField] private float distanceToCollect = 0.5f;
@@ -18,6 +19,8 @@ public class XPOrb : MonoBehaviour
     private float nextTime = 0.0f;
     private float timeWait = 1f;
 
+    [SerializeField] private float minMultiplier = 0.85f;
+    [SerializeField] private float maxMultiplier = 1.15f;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class XPOrb : MonoBehaviour
             rb.MovePosition(newPos);
             if (Vector3.SqrMagnitude(playerTransform.position - transform.position) < distanceToCollect * distanceToCollect)
             {
+                GameController.instance.levelManager.AddXp(Random.Range((int)(xpAmount * minMultiplier), (int)(xpAmount * maxMultiplier) + 1));
                 DestroyObject();
             }
         }

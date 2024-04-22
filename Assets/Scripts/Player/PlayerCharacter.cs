@@ -29,6 +29,10 @@ public class PlayerCharacter : MonoBehaviour
 
     public float dashLenght = 3f;
 
+    public float critChance = 10f;
+    public float critMultiplier = 2f;
+    public float damage = 100f;
+
     private void Start()
     {
         weaponData.SetStartStats();

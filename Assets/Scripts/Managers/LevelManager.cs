@@ -7,13 +7,50 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private List<XPOrb> xpOrbs = new List<XPOrb>();
+    private List<XPOrb> xpOrbs = new List<XPOrb>();
+
+    [SerializeField] private float currentXp = 0f;
+    [SerializeField] private float requiredXp = 0f;
+    [SerializeField] private float requiredXpAdditive = 0f;
+    [SerializeField] private int currentLevel = 0;
+
+    [SerializeField] private float multiplier = 1.05f;
+    [SerializeField] private int baseXpMult = 5;
+    [SerializeField] private int baseXpAdd = 70;
+    [SerializeField] private int afterMultiplyAdd = 0;
+
+    private void Start()
+    {
+        NextLevel();
+        TotalXpAdditive();
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
             CollectAllOrbs();
+        }
+    }
+
+    private void NextLevel()
+    {
+        currentLevel++;
+        requiredXp = (baseXpMult * Mathf.Pow(multiplier, currentLevel) + baseXpAdd) * currentLevel + afterMultiplyAdd;
+    }
+
+    private void TotalXpAdditive()
+    {
+        requiredXpAdditive += requiredXp;
+    }
+
+    public void AddXp(int amount)
+    {
+        currentXp += amount;
+        if(currentXp >= requiredXpAdditive)
+        {
+            NextLevel();
+            TotalXpAdditive();
         }
     }
 

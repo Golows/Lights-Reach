@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireBall : MonoBehaviour
 {
     private Camera mainCamera;
     private Vector3 mousePos;
+    private PlayerCharacter playerCharacter;
     private Rigidbody2D rb;
     public float force;
 
@@ -13,7 +15,16 @@ public class FireBall : MonoBehaviour
 
     private int pierceCount;
 
-    public float damage;
+    [SerializeField] private float minMultiplier = 0.80f;
+    [SerializeField] private float maxMultiplier = 1.2f;
+
+    [SerializeField] private float damageMultiplier;
+    private bool hit = false;
+
+    private void Awake()
+    {
+        playerCharacter = GameController.instance.playerCharacter;   
+    }
 
     private void Start()
     {
@@ -48,23 +59,29 @@ public class FireBall : MonoBehaviour
         if(pierceCount > 0)
         {
             Enemy enemy = collision.GetComponent<Enemy>();
-            EnemyFlying flyingEnemy = collision.GetComponent<EnemyFlying>();
 
-            if (enemy != null)
+            if(Random.value < playerCharacter.critChance / 100)
             {
-                enemy.TakeDamage(Random.Range(22f, 150f));
-                pierceCount--;
+                if(enemy != null)
+                {
+                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier);
+                    if(hit)
+                        pierceCount--;
+                }  
             }
-            if (flyingEnemy != null)
+            else
             {
-                flyingEnemy.TakeDamage(Random.Range(22f, 150f));
-                pierceCount--;
+                if (enemy != null)
+                {
+                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier);
+                    if(hit)
+                        pierceCount--;
+                }
             }
-            
+
             if(pierceCount <= 0)
             {
                 ObjectPoolManager.RemoveObjectToPool(gameObject);
-                //Destroy(gameObject);
             }
         }
         

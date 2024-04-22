@@ -18,6 +18,7 @@ public class EnemyFly : StateMachineBehaviour
     //OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        nextTime = Time.time + 1f;
         charcterPosition = GameController.instance.character.GetComponent<UnityEngine.Transform>();
         rb = animator.GetComponent<Rigidbody2D>();
         enemy = animator.GetComponent<EnemyFlying>();

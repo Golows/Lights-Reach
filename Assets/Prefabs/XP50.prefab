@@ -166,6 +166,7 @@ MonoBehaviour:
   collected: 0
   index: 0
   speed: 13
+  xpAmount: 50
   lightAura: {fileID: 3072485185686729180}
   distanceToCollect: 0.5
 --- !u!114 &3072485185686729180

@@ -148,6 +148,9 @@ MonoBehaviour:
   health: 0
   currentHealth: 0
   dashLenght: 3
+  critChance: 15
+  critMultiplier: 2
+  damage: 20
 --- !u!114 &2465511335347540564
 MonoBehaviour:
   m_ObjectHideFlags: 0
