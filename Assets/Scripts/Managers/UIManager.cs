@@ -26,7 +26,8 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateHealth(float health)
     {
-        HP.SetText(health.ToString());
+        int roundedHp = (int)health;
+        HP.SetText(roundedHp.ToString());
     }
 
     IEnumerator DelayDestroy(GameObject obj)

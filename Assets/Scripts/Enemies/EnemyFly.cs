@@ -28,6 +28,11 @@ public class EnemyFly : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (Time.timeScale < 0.1f)
+        {
+            return;
+        }
+
         if (Time.time >= nextTime)
         {
             enemy.Flip();

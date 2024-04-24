@@ -29,6 +29,7 @@ public class FireBall : MonoBehaviour
     private void Start()
     {
         //Destroy(gameObject, 5f);
+        pierceCount = playerCharacter.pierce;
     }
 
     public void SetMovement(int angle)
@@ -49,7 +50,7 @@ public class FireBall : MonoBehaviour
 
     IEnumerator EnableStart()
     {
-        pierceCount = GameController.instance.upgradeManager.pierceCount;
+        pierceCount = playerCharacter.pierce;
         yield return new WaitForSeconds(1f);
         ObjectPoolManager.RemoveObjectToPool(gameObject);
     }

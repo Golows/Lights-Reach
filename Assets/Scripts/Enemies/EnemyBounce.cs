@@ -40,6 +40,12 @@ public class EnemyBounce : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+        if(Time.timeScale < 0.1f)
+        {
+            return;
+        }
+
         enemy.Flip();       
 
         if (currentLocationX > 0 && currentLocationY > 0)

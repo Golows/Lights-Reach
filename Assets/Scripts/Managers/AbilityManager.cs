@@ -11,7 +11,7 @@ public class AbilityManager : MonoBehaviour
 
     void Start()
     {
-        speed = 0.8f;
+        speed = 1 / GameController.instance.playerCharacter.attackSpeed;
         StartCoroutine(SpawnFireBall());
     }
 
@@ -19,6 +19,7 @@ public class AbilityManager : MonoBehaviour
     {
         while(useFireBall)
         {
+            speed = 1 / GameController.instance.playerCharacter.attackSpeed;
             if(GameController.instance.upgradeManager.projectileCount == 1)
                 FireBallCreate1();
             else if (GameController.instance.upgradeManager.projectileCount == 2)

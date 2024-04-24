@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &955066728141078538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7328819246192530518}
+  - component: {fileID: 6142877322874113117}
+  - component: {fileID: 3773442610113653878}
+  - component: {fileID: 2171707473209694157}
+  - component: {fileID: 833146533151028544}
+  - component: {fileID: 1681482642921236822}
+  - component: {fileID: 9207577906256716639}
+  - component: {fileID: 5862213883227554707}
+  m_Layer: 0
+  m_Name: ManagersTemp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7328819246192530518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.35618, y: -1.1449618, z: 0.015289282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6142877322874113117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a67be2040bf0d941a29a9f459cb0bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 4650438452660653945, guid: c03a40eb183fd244f86476f8c6f5b85c, type: 3}
+  bull: {fileID: 8623896217763991128, guid: 08ea47b3e0d6c90429fc6470aa746503, type: 3}
+  upgradeManager: {fileID: 3773442610113653878}
+  enemyManager: {fileID: 2171707473209694157}
+  abilityManager: {fileID: 9207577906256716639}
+  spawner: {fileID: 7179633023840629866, guid: c03a40eb183fd244f86476f8c6f5b85c, type: 3}
+  uiManager: {fileID: 1681482642921236822}
+  xpOrb: {fileID: 8020203196138307402, guid: 1a9f458fce2f119468e4e7df6297a723, type: 3}
+  levelManager: {fileID: 833146533151028544}
+  UI: {fileID: 0}
+--- !u!114 &3773442610113653878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd6d41f11d7eb0489b6b821e81809b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scalingMoveSpeedMax: 36
+  moveSpeedScaler: 1.42
+  projectileCount: 1
+  pierceCount: 1
+  Card30Damage: {fileID: 4045569427377286159, guid: 87ded151e3c2b2e47a41aa5f85751cf6, type: 3}
+  Card50Damage: {fileID: 4045569427377286159, guid: 8f2eca1bd56bfa9488bef0983fbd90de, type: 3}
+  Card15AttackSpeed: {fileID: 1486081020457621875, guid: a42d102005cc1d3448feec2cda0cf797, type: 3}
+  Card30AttackSpeed: {fileID: 1486081020457621875, guid: 0aaef9577f694f240bbf1ed7e430d516, type: 3}
+  Card2_5DamageReduction: {fileID: 1486081020457621875, guid: 6d86b804ee1bda7478aa2ef5664f53d4, type: 3}
+  Card10MoveSpeed: {fileID: 3918793447080837999, guid: 7f87e42f4371d7d4eb29d02536325b22, type: 3}
+  Card5CritChance: {fileID: 4045569427377286159, guid: d6093fc60e0077d4284972fb4f1870dd, type: 3}
+--- !u!114 &2171707473209694157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3f42042106a824c85aae6b1eb03e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bull: {fileID: 8623896217763991128, guid: 08ea47b3e0d6c90429fc6470aa746503, type: 3}
+  kite: {fileID: 8068853932669687192, guid: 8958eef05fd5ddb4bab8c01120049094, type: 3}
+  slime: {fileID: 5222795359672456917, guid: f0005370b76b3a043a954b3628c57b54, type: 3}
+  spawnTime: 5
+  enemyCount: 0
+--- !u!114 &833146533151028544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7ddd8b98be01a644a5344df328e8ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentXp: 0
+  requiredXp: 0
+  requiredXpAdditive: 0
+  currentLevel: 0
+  multiplier: 1.02
+  baseXpMult: 5
+  baseXpAdd: 70
+  afterMultiplyAdd: 0
+--- !u!114 &1681482642921236822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6a1a37661b967458063970affc2daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: {fileID: 0}
+  damageText: {fileID: 8476939865805061792, guid: badca3892b552d7428cff8882bf3182e, type: 3}
+  UI: {fileID: 0}
+  minMultiplier: 0.93
+  maxMultiplier: 1.07
+--- !u!114 &9207577906256716639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9478a6070499474a8166af72639cac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireBall: {fileID: 7790183289916257035, guid: 5af176adddd0d474eb0810e5e1e48f30, type: 3}
+--- !u!114 &5862213883227554707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2839cb506e84142861bd69ff38d489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 0}

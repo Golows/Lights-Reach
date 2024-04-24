@@ -20,6 +20,9 @@ public class GameController : MonoBehaviour
     public GameObject xpOrb;
     public LevelManager levelManager;
 
+
+    public GameObject UI;
+
     private void Awake()
     {
         instance = this;

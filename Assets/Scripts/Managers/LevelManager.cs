@@ -27,10 +27,12 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
+#if CHEAT
         if (Input.GetKeyDown(KeyCode.C))
         {
             CollectAllOrbs();
         }
+#endif
     }
 
     private void NextLevel()
@@ -51,6 +53,8 @@ public class LevelManager : MonoBehaviour
         {
             NextLevel();
             TotalXpAdditive();
+            Time.timeScale = 0;
+            GameController.instance.upgradeManager.GetCards();
         }
     }
 

@@ -30,6 +30,10 @@ public class EnemyRun : StateMachineBehaviour
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (Time.timeScale < 0.1f)
+        {
+            return;
+        }
         enemy.Flip();
 
         Vector2 target = new Vector2(charcterPosition.position.x, charcterPosition.position.y);

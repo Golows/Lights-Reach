@@ -7,35 +7,45 @@ using UnityEngine.TextCore.Text;
 
 public class PlayerCharacter : MonoBehaviour
 {
-    public WeaponData weaponData;
     public Camera mainCamera;
     [SerializeField] private Animator animator;
 
     //Stats
-    [SerializeField] private float baseMoveSpeed = 3f;
-    public float moveSpeed = 0;
+    public float baseMoveSpeed;
+    public float moveSpeed;
 
-    [SerializeField] private float baseDashCooldown = 0.2f;
-    public float dashCooldown = 0;
+    [SerializeField] private float baseDashCooldown;
+    [NonSerialized] public float dashCooldown;
 
-    [SerializeField] private float baseDashSpeed = 18f;
-    public float dashSpeed = 0f;
+    [SerializeField] private float baseDashSpeed;
+    [NonSerialized] public float dashSpeed;
 
-    public float dashTime = 0.2f;
+    [NonSerialized] public float dashTime;
+    [SerializeField] public float dashLenght = 3f;
 
-    [SerializeField] private float baseHealth = 20f;
-    public float health = 0;
-    public float currentHealth = 0;
+    [SerializeField] private float baseHealth;
+    [NonSerialized] public float health;
+    [NonSerialized] public float currentHealth;
 
-    public float dashLenght = 3f;
+    
 
-    public float critChance = 10f;
-    public float critMultiplier = 2f;
-    public float damage = 100f;
+    public float critChance;
 
-    private void Start()
+    public float baseCritMultiplier;
+    public float critMultiplier;
+
+    public float baseDamage;
+    public float damage;
+
+    public float baseAttackSpeed;
+    public float attackSpeed;
+
+    public int pierce;
+
+    public float damageReduction = 0;
+
+    private void Awake()
     {
-        weaponData.SetStartStats();
         SetStartStats();
     }
 
@@ -47,11 +57,15 @@ public class PlayerCharacter : MonoBehaviour
         dashTime = dashLenght / dashSpeed;
         health = baseHealth;
         currentHealth = health;
+        damage = baseDamage;
+        attackSpeed = baseAttackSpeed;
+        critMultiplier = baseCritMultiplier;
         GameController.instance.uiManager.UpdateHealth(currentHealth);
     }
 
     public void TakeDamage(float damage)
     {
+        damage = damage * (1 - damageReduction/100);
         if(currentHealth - damage > 0)
         {
             currentHealth -= damage;

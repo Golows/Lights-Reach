@@ -10,7 +10,8 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject _objectPoolEmptyHolder;
     private static GameObject _enemiesEmpty;
     private static GameObject _abilitiesEmpty;
-    private static GameObject _UIEmpty;
+    [SerializeField] private GameObject ui;
+    private static GameObject _UIMain;
 
     public enum PoolType
     {
@@ -37,8 +38,7 @@ public class ObjectPoolManager : MonoBehaviour
         _enemiesEmpty = new GameObject("Pooled Enemies");
         _enemiesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
 
-        _UIEmpty = new GameObject("Pooled UI");
-        _UIEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        _UIMain = ui;
     }
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
@@ -108,7 +108,7 @@ public class ObjectPoolManager : MonoBehaviour
             case PoolType.Enemies:
                 return _enemiesEmpty;
             case PoolType.UI:
-                return _UIEmpty;
+                return _UIMain;
             case PoolType.None:
                 return null;
             default:
