@@ -24,7 +24,7 @@ public class UpgradeManager : MonoBehaviour
     //Stat card prefabs
     [SerializeField] private GameObject CardDamage1, CardDamage2, CardAttackSpeed1, CardAttackSpeed2,
                                         CardDamageReduction, CardMoveSpeed, CardCritChance, CardPierce,
-                                        CardCritMulti;
+                                        CardCritMulti, CardFireballPlus;
 
     private List<GameObject> powerCards = new List<GameObject>();
     private List<GameObject> utilityCards = new List<GameObject>(); 
@@ -85,6 +85,7 @@ public class UpgradeManager : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             powerCards.Add(CardPierce);
+            powerCards.Add(CardFireballPlus);
         }
     }
 
@@ -148,9 +149,25 @@ public class UpgradeManager : MonoBehaviour
     }
 
     public void FireBallCountUpgrade()
-    {
-        if(projectileCount < 5)
-            projectileCount += 1;
+    {            
+        if (projectileCount < 5)
+        {
+                projectileCount += 1;
+        }
+
+        if (projectileCount == 5)
+        {
+            for (int i = 0; i < powerCards.Count; i++)
+            {
+                if (powerCards[i] == CardFireballPlus)
+                {
+                    powerCards.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        RemoveCards();
     }
 
     public void IncreasePierce()

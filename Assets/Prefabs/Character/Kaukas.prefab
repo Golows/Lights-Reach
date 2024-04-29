@@ -162,7 +162,7 @@ MonoBehaviour:
   baseAttackSpeed: 1
   attackSpeed: 0
   pierce: 1
-  damageReduction: 45
+  damageReduction: 10
 --- !u!114 &2465511335347540564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 3072
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 0

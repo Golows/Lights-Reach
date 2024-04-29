@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7328819246192530518}
   - component: {fileID: 6142877322874113117}
+  - component: {fileID: 3907550319246601235}
   - component: {fileID: 3773442610113653878}
   - component: {fileID: 2171707473209694157}
   - component: {fileID: 833146533151028544}
@@ -59,7 +60,25 @@ MonoBehaviour:
   uiManager: {fileID: 1681482642921236822}
   xpOrb: {fileID: 8020203196138307402, guid: 1a9f458fce2f119468e4e7df6297a723, type: 3}
   levelManager: {fileID: 833146533151028544}
+  timeManager: {fileID: 3907550319246601235}
   UI: {fileID: 0}
+--- !u!114 &3907550319246601235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237cd5063f35d694e84548d86fc8b561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loopTime: 600
+  timeLeft: 0
+  beginPlay: 0
+  timeLeft7: 0
+  timeLeft3: 0
 --- !u!114 &3773442610113653878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,14 +94,15 @@ MonoBehaviour:
   scalingMoveSpeedMax: 36
   moveSpeedScaler: 1.42
   projectileCount: 1
-  pierceCount: 1
-  Card30Damage: {fileID: 4045569427377286159, guid: 87ded151e3c2b2e47a41aa5f85751cf6, type: 3}
-  Card50Damage: {fileID: 4045569427377286159, guid: 8f2eca1bd56bfa9488bef0983fbd90de, type: 3}
-  Card15AttackSpeed: {fileID: 1486081020457621875, guid: a42d102005cc1d3448feec2cda0cf797, type: 3}
-  Card30AttackSpeed: {fileID: 1486081020457621875, guid: 0aaef9577f694f240bbf1ed7e430d516, type: 3}
-  Card2_5DamageReduction: {fileID: 1486081020457621875, guid: 6d86b804ee1bda7478aa2ef5664f53d4, type: 3}
-  Card10MoveSpeed: {fileID: 3918793447080837999, guid: 7f87e42f4371d7d4eb29d02536325b22, type: 3}
-  Card5CritChance: {fileID: 4045569427377286159, guid: d6093fc60e0077d4284972fb4f1870dd, type: 3}
+  CardDamage1: {fileID: 0}
+  CardDamage2: {fileID: 0}
+  CardAttackSpeed1: {fileID: 0}
+  CardAttackSpeed2: {fileID: 0}
+  CardDamageReduction: {fileID: 0}
+  CardMoveSpeed: {fileID: 0}
+  CardCritChance: {fileID: 0}
+  CardPierce: {fileID: 0}
+  CardCritMulti: {fileID: 0}
 --- !u!114 &2171707473209694157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,8 +118,10 @@ MonoBehaviour:
   bull: {fileID: 8623896217763991128, guid: 08ea47b3e0d6c90429fc6470aa746503, type: 3}
   kite: {fileID: 8068853932669687192, guid: 8958eef05fd5ddb4bab8c01120049094, type: 3}
   slime: {fileID: 5222795359672456917, guid: f0005370b76b3a043a954b3628c57b54, type: 3}
-  spawnTime: 5
   enemyCount: 0
+  startedSpawningBull: 0
+  startedSpawningSlime: 0
+  startedSpawningKite: 0
 --- !u!114 &833146533151028544
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -79,8 +79,17 @@ public class PlayerCharacter : MonoBehaviour
         }
     }
 
-    private void Die()
+    IEnumerator Death()
     {
         animator.SetTrigger("Death");
+        yield return new WaitForSeconds(1.667f);
+        Time.timeScale = 0f;
+    }
+
+    private void Die()
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        StartCoroutine(Death());
     }
 }

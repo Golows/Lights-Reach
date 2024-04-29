@@ -48,51 +48,51 @@ public class AbilityManager : MonoBehaviour
     private void FireBallCreate2()
     {
         GameObject newFireBall = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall.GetComponent<FireBall>().SetMovement(82);
+        newFireBall.GetComponent<FireBall>().SetMovement(87);
 
         GameObject newFireBall2 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall2.GetComponent<FireBall>().SetMovement(98);
+        newFireBall2.GetComponent<FireBall>().SetMovement(93);
     }
     private void FireBallCreate3()
     {
         GameObject newFireBall = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall.GetComponent<FireBall>().SetMovement(75);
+        newFireBall.GetComponent<FireBall>().SetMovement(84);
 
         GameObject newFireBall2 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
         newFireBall2.GetComponent<FireBall>().SetMovement(90);
 
         GameObject newFireBall3 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall3.GetComponent<FireBall>().SetMovement(105);
+        newFireBall3.GetComponent<FireBall>().SetMovement(96);
     }
     private void FireBallCreate4()
     {
         GameObject newFireBall = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall.GetComponent<FireBall>().SetMovement(67);
+        newFireBall.GetComponent<FireBall>().SetMovement(81);
 
         GameObject newFireBall2 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall2.GetComponent<FireBall>().SetMovement(82);
+        newFireBall2.GetComponent<FireBall>().SetMovement(87);
 
         GameObject newFireBall3 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall3.GetComponent<FireBall>().SetMovement(98);
+        newFireBall3.GetComponent<FireBall>().SetMovement(93);
 
         GameObject newFireBall4 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall4.GetComponent<FireBall>().SetMovement(113);
+        newFireBall4.GetComponent<FireBall>().SetMovement(99);
     }
     private void FireBallCreate5()
     {
         GameObject newFireBall = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall.GetComponent<FireBall>().SetMovement(75);
+        newFireBall.GetComponent<FireBall>().SetMovement(78);
 
         GameObject newFireBall2 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall2.GetComponent<FireBall>().SetMovement(105);
+        newFireBall2.GetComponent<FireBall>().SetMovement(84);
 
         GameObject newFireBall3 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
         newFireBall3.GetComponent<FireBall>().SetMovement(90);
 
         GameObject newFireBall4 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall4.GetComponent<FireBall>().SetMovement(60);
+        newFireBall4.GetComponent<FireBall>().SetMovement(96);
 
         GameObject newFireBall5 = ObjectPoolManager.SpawnObject(fireBall, GameController.instance.character.transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Abilities);
-        newFireBall5.GetComponent<FireBall>().SetMovement(120);
+        newFireBall5.GetComponent<FireBall>().SetMovement(102);
     }
 }

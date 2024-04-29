@@ -19,8 +19,7 @@ public class GameController : MonoBehaviour
     [NonSerialized] public Transform playerTransform;
     public GameObject xpOrb;
     public LevelManager levelManager;
-
-
+    public TimeManager timeManager;
     public GameObject UI;
 
     private void Awake()
@@ -32,4 +31,5 @@ public class GameController : MonoBehaviour
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 144;
     }
+
 }
