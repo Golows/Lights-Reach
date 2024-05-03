@@ -169,6 +169,8 @@ MonoBehaviour:
   xpAmount: 50
   lightAura: {fileID: 3072485185686729180}
   distanceToCollect: 0.5
+  minMultiplier: 0.85
+  maxMultiplier: 1.15
 --- !u!114 &3072485185686729180
 MonoBehaviour:
   m_ObjectHideFlags: 0

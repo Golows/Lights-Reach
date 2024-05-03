@@ -14,7 +14,7 @@ public class UpgradeManager : MonoBehaviour
     private int moveSpeedCount = 0;
     public int projectileCount = 1;
 
-    private float attackSpeedMult = 0, dmgMult = 0, msMult = 0, critMult = 0;
+    private float attackSpeedMult = 0, dmgMult = 0, msMult = 0, critMult = 0, healthMult = 0;
 
     private int random1, random2, random3;
 
@@ -24,10 +24,10 @@ public class UpgradeManager : MonoBehaviour
     //Stat card prefabs
     [SerializeField] private GameObject CardDamage1, CardDamage2, CardAttackSpeed1, CardAttackSpeed2,
                                         CardDamageReduction, CardMoveSpeed, CardCritChance, CardPierce,
-                                        CardCritMulti, CardFireballPlus;
+                                        CardCritMulti, CardFireballPlus, CardHealthRegen, CardHealth;
 
     private List<GameObject> powerCards = new List<GameObject>();
-    private List<GameObject> utilityCards = new List<GameObject>(); 
+    private List<GameObject> utilityCards = new List<GameObject>();
 
     private void Start()
     {
@@ -69,10 +69,15 @@ public class UpgradeManager : MonoBehaviour
             powerCards.Add(CardCritChance);
 
             utilityCards.Add(CardDamageReduction);
+            utilityCards.Add(CardHealth);
         }
         for (int i = 0; i < 17; i++)
         {
             powerCards.Add(CardCritMulti);
+        }
+        for (int i = 0; i < 15; i++)
+        {
+            utilityCards.Add(CardHealthRegen);
         }
         for (int i = 0; i < 4; i++)
         {
@@ -118,8 +123,7 @@ public class UpgradeManager : MonoBehaviour
         card2.transform.position = uiPosition;
         
         card1.SetActive(true);
-        card2.SetActive(true);
-        
+        card2.SetActive(true);       
     }
 
     public void MoveSpeedUpgrade(float increase)
@@ -199,6 +203,21 @@ public class UpgradeManager : MonoBehaviour
         RemoveCards();
     }
 
+    public void UpgradeHpRegeneration(float amount)
+    {
+        playerCharacter.healthRegen += amount;
+        RemoveCards();
+    }
+
+    public void UpgradeHealth(float amount)
+    {
+        healthMult += amount;
+        float increaseAmount = playerCharacter.health * (1 + healthMult) - playerCharacter.health;
+        playerCharacter.currentHealth += increaseAmount;
+        playerCharacter.health += increaseAmount;
+        GameController.instance.uiManager.UpdateHealth();
+        RemoveCards();
+    }
 
     public void UpgradeAttackSpeed(float amount)
     {
@@ -246,7 +265,6 @@ public class UpgradeManager : MonoBehaviour
             card2.SetActive(false);
             card3.SetActive(false);
         }
-        
 
         Time.timeScale = 1;
     }

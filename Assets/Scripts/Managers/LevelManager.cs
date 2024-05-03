@@ -9,10 +9,11 @@ public class LevelManager : MonoBehaviour
 {
     private List<XPOrb> xpOrbs = new List<XPOrb>();
 
-    [SerializeField] private float currentXp = 0f;
-    [SerializeField] private float requiredXp = 0f;
-    [SerializeField] private float requiredXpAdditive = 0f;
-    [SerializeField] private int currentLevel = 0;
+    public float currentXp = 0f;
+    public float currentXpNotAddative = 0f;
+    public float requiredXp = 0f;
+    public float requiredXpAdditive = 0f;
+    public int currentLevel = 0;
 
     [SerializeField] private float multiplier = 1.05f;
     [SerializeField] private int baseXpMult = 5;
@@ -21,8 +22,9 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        NextLevel();
-        TotalXpAdditive();
+        NextLevel(0);
+        GameController.instance.uiManager.UpdateExperience();
+        GameController.instance.uiManager.UpdateLevel();
     }
 
     private void Update()
@@ -35,27 +37,27 @@ public class LevelManager : MonoBehaviour
 #endif
     }
 
-    private void NextLevel()
+    private void NextLevel(float overCap)
     {
         currentLevel++;
         requiredXp = (baseXpMult * Mathf.Pow(multiplier, currentLevel) + baseXpAdd) * currentLevel + afterMultiplyAdd;
-    }
-
-    private void TotalXpAdditive()
-    {
+        currentXpNotAddative = overCap;
         requiredXpAdditive += requiredXp;
+        GameController.instance.uiManager.UpdateLevel();
     }
 
     public void AddXp(int amount)
     {
         currentXp += amount;
+        currentXpNotAddative += amount;
+        
         if(currentXp >= requiredXpAdditive)
         {
-            NextLevel();
-            TotalXpAdditive();
+            NextLevel(currentXp - requiredXpAdditive);
             Time.timeScale = 0;
             GameController.instance.upgradeManager.GetCards();
         }
+        GameController.instance.uiManager.UpdateExperience();
     }
 
     public void CollectAllOrbs()

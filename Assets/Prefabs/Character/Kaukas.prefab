@@ -154,6 +154,7 @@ MonoBehaviour:
   baseDashSpeed: 25
   dashLenght: 3
   baseHealth: 200
+  baseHealthRegen: 0.2
   critChance: 15
   baseCritMultiplier: 2
   critMultiplier: 2
@@ -162,7 +163,8 @@ MonoBehaviour:
   baseAttackSpeed: 1
   attackSpeed: 0
   pierce: 1
-  damageReduction: 10
+  damageReduction: 15
+  startingArea: 0
 --- !u!114 &2465511335347540564
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,11 +8,21 @@ public class AbilityManager : MonoBehaviour
 
     private float speed;
     private bool useFireBall = true;
+    private bool onCooldownFireball = false;
+    private float fireballCooldown = 0;
 
-    void Start()
+    private void Start()
     {
         speed = 1 / GameController.instance.playerCharacter.attackSpeed;
         StartCoroutine(SpawnFireBall());
+    }
+
+    private void Update()
+    {
+        if(onCooldownFireball && fireballCooldown - Time.deltaTime >= 0)
+        {
+            fireballCooldown -= Time.deltaTime;
+        }
     }
 
     public IEnumerator SpawnFireBall()
@@ -20,6 +30,7 @@ public class AbilityManager : MonoBehaviour
         while(useFireBall)
         {
             speed = 1 / GameController.instance.playerCharacter.attackSpeed;
+            fireballCooldown = speed;
             if(GameController.instance.upgradeManager.projectileCount == 1)
                 FireBallCreate1();
             else if (GameController.instance.upgradeManager.projectileCount == 2)
@@ -31,8 +42,9 @@ public class AbilityManager : MonoBehaviour
             else if (GameController.instance.upgradeManager.projectileCount == 5)
                 FireBallCreate5();
 
+            onCooldownFireball = true;
             yield return new WaitForSeconds(speed);
-            
+            onCooldownFireball = false;
         }
         
     }

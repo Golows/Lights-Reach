@@ -41,7 +41,7 @@ public class EnemyManager : MonoBehaviour
             if (!started5Seconds)
             {
                 started5Seconds = true;
-                StartCoroutine(Every5Seconds());
+                StartCoroutine(Every4Seconds());
             }
             if (!startedSpawningBull)
             {
@@ -51,6 +51,7 @@ public class EnemyManager : MonoBehaviour
             }
             if (GameController.instance.timeManager.timeLeft7 && !startedSpawningSlime)
             {
+                maxEnemies += 5;
                 startedSpawningSlime = true;
                 StartCoroutine(SpawnSlimes());
                 spawnersCount++;
@@ -58,6 +59,7 @@ public class EnemyManager : MonoBehaviour
 
             if (GameController.instance.timeManager.timeLeft3 && !startedSpawningKite)
             {
+                maxEnemies += 5;
                 startedSpawningKite = true;
                 StartCoroutine(SpawnKites());
                 spawnersCount++;
@@ -66,12 +68,12 @@ public class EnemyManager : MonoBehaviour
         
     }
 
-    private IEnumerator Every5Seconds()
+    private IEnumerator Every4Seconds()
     {
         while (true)
         {
             maxEnemies++;
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4f);
         }
     }
 
@@ -99,7 +101,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if (enemyCount < maxEnemies)
                 {
-                    SpawnBullsRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.5f));
+                    SpawnBullsRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.7f));
                 }
             }
             yield return waitTime;
@@ -172,7 +174,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if (enemyCount < maxEnemies)
                 {
-                    SpawnKitesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.2f));
+                    SpawnKitesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.08f));
                 }
             }
             
@@ -209,14 +211,14 @@ public class EnemyManager : MonoBehaviour
             {
                 if (enemyCount < maxEnemies)
                 {
-                    SpawnSlimesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.3f));
+                    SpawnSlimesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.2f));
                 }
             }
             if (spawnersCount == 3)
             {
                 if (enemyCount < maxEnemies)
                 {
-                    SpawnSlimesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.3f));
+                    SpawnSlimesRandomly(Mathf.RoundToInt((maxEnemies - enemyCount) * 0.2f));
                 }
             }
             yield return waitTime;

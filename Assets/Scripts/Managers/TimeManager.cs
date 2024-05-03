@@ -20,7 +20,7 @@ public class TimeManager : MonoBehaviour
         beginPlay = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (beginPlay)
         {
@@ -32,9 +32,9 @@ public class TimeManager : MonoBehaviour
     {
         if (timeLeft > 0)
         {
-            timeLeft -= Time.deltaTime;
+            timeLeft -= Time.fixedDeltaTime;
             timeLeft = System.Math.Round(timeLeft, 2);
-            timer.text = Mathf.FloorToInt((float)timeLeft / 60).ToString() + ":" + Mathf.RoundToInt((float)timeLeft % 60).ToString();
+            timer.text = Mathf.FloorToInt((float)timeLeft / 60).ToString() + ":" + Mathf.FloorToInt((float)timeLeft % 60).ToString();
         }
         if (timeLeft < 0)
         {
