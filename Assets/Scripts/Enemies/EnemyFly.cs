@@ -8,7 +8,6 @@ public class EnemyFly : StateMachineBehaviour
     private UnityEngine.Transform charcterPosition;
     private Rigidbody2D rb;
     private EnemyFlying enemy;
-    private EnemyData enemyData;
     private Vector2 previousLocation = new Vector2(0, 0);
     private float offsetX, offsetY;
     float interval = 2.5f;
@@ -22,7 +21,6 @@ public class EnemyFly : StateMachineBehaviour
         charcterPosition = GameController.instance.character.GetComponent<UnityEngine.Transform>();
         rb = animator.GetComponent<Rigidbody2D>();
         enemy = animator.GetComponent<EnemyFlying>();
-        enemyData = enemy.enemyData;
     }
 
     //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -59,7 +57,7 @@ public class EnemyFly : StateMachineBehaviour
             nextTime += interval;
         }
 
-        Vector2 newPos = Vector2.MoveTowards(rb.position, targetDestination, enemyData.speed * Time.fixedDeltaTime);
+        Vector2 newPos = Vector2.MoveTowards(rb.position, targetDestination, enemy.moveSpeed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
     }

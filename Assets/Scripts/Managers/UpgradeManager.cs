@@ -9,6 +9,7 @@ public class UpgradeManager : MonoBehaviour
     private PlayerCharacter playerCharacter;
     [SerializeField] private float scalingMoveSpeedMax;
     [SerializeField] private float moveSpeedScaler;
+    private AbilityManager abilityManager;
     private float scalingMoveSpeed;
 
     private int moveSpeedCount = 0;
@@ -19,19 +20,23 @@ public class UpgradeManager : MonoBehaviour
     private int random1, random2, random3;
 
     private GameObject card1, card2, card3;
+    private Vector3 uiPosition;
 
 
     //Stat card prefabs
     [SerializeField] private GameObject CardDamage1, CardDamage2, CardAttackSpeed1, CardAttackSpeed2,
                                         CardDamageReduction, CardMoveSpeed, CardCritChance, CardPierce,
                                         CardCritMulti, CardFireballPlus, CardHealthRegen, CardHealth;
+    [SerializeField] private GameObject AbilityCardLightning, AbilityCardTornados;
 
     private List<GameObject> powerCards = new List<GameObject>();
     private List<GameObject> utilityCards = new List<GameObject>();
+    private List<GameObject> abilityCards = new List<GameObject>();
 
     private void Start()
     {
         playerCharacter = GameController.instance.character.GetComponent<PlayerCharacter>();
+        abilityManager = GameController.instance.abilityManager;
 
         AddCardsToTable();
     }
@@ -92,11 +97,14 @@ public class UpgradeManager : MonoBehaviour
             powerCards.Add(CardPierce);
             powerCards.Add(CardFireballPlus);
         }
+
+        abilityCards.Add(AbilityCardLightning);
+        abilityCards.Add(AbilityCardTornados);
     }
 
     public void GetCards()
     {
-        Vector3 uiPosition = GameController.instance.UI.transform.position;
+        uiPosition = GameController.instance.UI.transform.position;
 
         random1 = Random.Range(0, powerCards.Count);
         card1 = powerCards[random1];
@@ -104,15 +112,10 @@ public class UpgradeManager : MonoBehaviour
         random2 = Random.Range(0, powerCards.Count);
         card2 = powerCards[random2];
 
-        if(utilityCards.Count > 0)
-        {
-            random3 = Random.Range(0, utilityCards.Count);
-            card3 = utilityCards[random3];
-            card3.transform.position = new Vector3(uiPosition.x + 500f, uiPosition.y, uiPosition.z);
-            card3.SetActive(true);
-        }
+        random3 = Random.Range(0, utilityCards.Count);
+        card3 = utilityCards[random3];
 
-        while(card1.name == card2.name || (card1 == CardDamage2 && card2 == CardDamage1) || (card1 == CardDamage1 && card2 == CardDamage2)
+        while (card1.name == card2.name || (card1 == CardDamage2 && card2 == CardDamage1) || (card1 == CardDamage1 && card2 == CardDamage2)
                                        || (card1 == CardAttackSpeed1 && card2 == CardAttackSpeed2) || (card1 == CardAttackSpeed2 && card2 == CardAttackSpeed1))
         {
             random2 = Random.Range(0, powerCards.Count);
@@ -121,9 +124,50 @@ public class UpgradeManager : MonoBehaviour
 
         card1.transform.position = new Vector3(uiPosition.x - 500f, uiPosition.y, uiPosition.z);
         card2.transform.position = uiPosition;
-        
+        card3.transform.position = new Vector3(uiPosition.x + 500f, uiPosition.y, uiPosition.z);
+
         card1.SetActive(true);
-        card2.SetActive(true);       
+        card2.SetActive(true);
+        card3.SetActive(true);
+    }
+
+    public void GetAbilities()
+    {
+        uiPosition = GameController.instance.UI.transform.position;
+        random1 = Random.Range(0, abilityCards.Count);
+        card1 = abilityCards[random1];
+
+        if(abilityCards.Count > 1)
+        {
+            random2 = Random.Range(0, abilityCards.Count);
+            card2 = abilityCards[random2];
+            while (card1.name == card2.name)
+            {
+                random2 = Random.Range(0, abilityCards.Count);
+                card2 = abilityCards[random2];
+            }
+            card2.transform.position = uiPosition;
+            card2.SetActive(true);
+        }
+
+        card1.transform.position = new Vector3(uiPosition.x - 500f, uiPosition.y, uiPosition.z);
+
+        card1.SetActive(true);
+        
+    }
+
+    public void UnlockLightning()
+    {
+        abilityManager.SpawnLightning();
+        abilityCards.Remove(AbilityCardLightning);
+        RemoveCards();
+    }
+
+    public void UnlockTornado()
+    {
+        abilityManager.SpawnTornado();
+        abilityCards.Remove(AbilityCardTornados);
+        RemoveCards();
     }
 
     public void MoveSpeedUpgrade(float increase)
@@ -212,7 +256,7 @@ public class UpgradeManager : MonoBehaviour
     public void UpgradeHealth(float amount)
     {
         healthMult += amount;
-        float increaseAmount = playerCharacter.health * (1 + healthMult) - playerCharacter.health;
+        float increaseAmount = playerCharacter.baseHealth * (1 + healthMult) - playerCharacter.health;
         playerCharacter.currentHealth += increaseAmount;
         playerCharacter.health += increaseAmount;
         GameController.instance.uiManager.UpdateHealth();
@@ -263,7 +307,8 @@ public class UpgradeManager : MonoBehaviour
         {
             card1.SetActive(false);
             card2.SetActive(false);
-            card3.SetActive(false);
+            if(card3 != null)
+                card3.SetActive(false);
         }
 
         Time.timeScale = 1;

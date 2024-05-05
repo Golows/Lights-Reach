@@ -24,7 +24,7 @@ public class PlayerCharacter : MonoBehaviour
     [NonSerialized] public float dashTime;
     [SerializeField] public float dashLenght = 3f;
 
-    [SerializeField] private float baseHealth;
+    [SerializeField] public float baseHealth;
     [NonSerialized] public float health;
     [NonSerialized] public float currentHealth;
 

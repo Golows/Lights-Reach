@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AbilityManager : MonoBehaviour
 {
     public GameObject fireBall;
+    public GameObject chainLightning;
+    public GameObject tornado;
 
     private float speed;
     private bool useFireBall = true;
     private bool onCooldownFireball = false;
     private float fireballCooldown = 0;
+    private List<GameObject> tornados = new List<GameObject>();
 
     private void Start()
     {
@@ -22,6 +26,33 @@ public class AbilityManager : MonoBehaviour
         if(onCooldownFireball && fireballCooldown - Time.deltaTime >= 0)
         {
             fireballCooldown -= Time.deltaTime;
+        }
+    }
+
+    public void SpawnLightning()
+    {
+        StartCoroutine(SpawnChainLightning());
+    }
+
+    public void SpawnTornado()
+    {
+        int angle = 0;
+        for(int i = 0; i < 4; i++)
+        {
+            GameObject newTornado = Instantiate(tornado, GameController.instance.character.transform.position, Quaternion.identity);
+            newTornado.GetComponent<Tornado>().angle = angle;
+            tornados.Add(newTornado);
+            angle += 90;
+        }
+    }
+
+    public IEnumerator SpawnChainLightning()
+    {
+        while(true)
+        {
+            var lightning = Instantiate(chainLightning, GameController.instance.character.transform.position, Quaternion.identity);
+            lightning.GetComponent<ChainLightning>().basePierce += GameController.instance.playerCharacter.pierce;
+            yield return new WaitForSeconds(speed * 2f);
         }
     }
 

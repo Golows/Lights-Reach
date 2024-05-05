@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,28 +21,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform shadowTransform;
     [SerializeField] private Animator animator;
 
-
-    void Update()
+    private void OnDash()
     {
-        if(isDashing)
-        {
-            return;
-        }
-        ProcessInputs();
-        
-        if(Input.GetKeyDown(KeyCode.Space) && canDash)
+        if(canDash)
         {
             StartCoroutine(Dash());
         }
+    }
 
-        if(moveX > 0 && !facingRight)
+    private void OnMovement(InputValue inputValue)
+    {
+        if(!isDashing)
         {
-            Flip();
+            moveDirection = inputValue.Get<Vector2>();
+            moveX = moveDirection.x;
+            moveY = moveDirection.y;
+            if (moveX > 0 && !facingRight)
+            {
+                Flip();
+            }
+            if (moveX < 0 && facingRight)
+            {
+                Flip();
+            }
+            ProcessInputs();
         }
-        if(moveX < 0 && facingRight)
-        {
-            Flip();
-        }
+        
     }
 
     private void FixedUpdate()
@@ -54,8 +60,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void ProcessInputs()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
         if(moveY > 0)
         {
             movingUp = true;
@@ -73,7 +77,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool(walkingBool, false);
         }
-        moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     private void Move()

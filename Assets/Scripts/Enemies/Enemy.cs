@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,11 +12,22 @@ public class Enemy : MonoBehaviour
     public LayerMask attackMask;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform xpDropPosition;
+    [SerializeField] private GameObject scroll;
+    [SerializeField] private Image healthBar;
+    public GameObject healthBarPrefab;
     public float waitDeath;
     private string deathTrigger = "Died";
     private Rigidbody2D rb;
-
-    private float currentHealth;
+    public bool beenStruck = false;
+    private bool keepTakingDamage;
+    public float currentHealth;
+    public float maxHealth;
+    public float moveSpeed;
+    public float attackRange;
+    public float damage;
+    private PlayerCharacter playerCharacter;
+    public bool elite = false;
+    
 
     private void Awake()
     {
@@ -26,8 +38,15 @@ public class Enemy : MonoBehaviour
     public virtual void Start()
     {
         player = GameController.instance.character.GetComponent<Transform>();
+        playerCharacter = GameController.instance.playerCharacter;
         playerMovement = GameController.instance.character.GetComponent<PlayerMovement>();
-        currentHealth = enemyData.health;
+        if(!elite)
+        {
+            currentHealth = enemyData.health;
+            moveSpeed = enemyData.speed;
+            attackRange = enemyData.attackRange;
+            damage = enemyData.damage;
+        }
         waitDeath = 1.455f;
     }
 
@@ -65,6 +84,11 @@ public class Enemy : MonoBehaviour
         {
             spriteRenderer.sortingOrder = layer2;
         }
+    }
+
+    public void UpdateHealthBar()
+    {
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 
     public void TeleportToPlayerDirection()
@@ -123,7 +147,7 @@ public class Enemy : MonoBehaviour
 
         if (colInfo != null)
         {
-            GameController.instance.playerCharacter.TakeDamage(enemyData.damage);
+            GameController.instance.playerCharacter.TakeDamage(damage);
         }
     }
 
@@ -134,11 +158,13 @@ public class Enemy : MonoBehaviour
 
         if(currentLocation < -0.5 && !isFlipped)
         {
+            healthBarPrefab.transform.Rotate(0f, 180f, 0f);
             transform.Rotate(0f, 180f, 0f);
             isFlipped = true;
         }
         else if (currentLocation > 0.5 && isFlipped)
         {
+            healthBarPrefab.transform.Rotate(0f, 180f, 0f);
             transform.Rotate(0f, 180f, 0f);
             isFlipped = false;
         }
@@ -146,13 +172,62 @@ public class Enemy : MonoBehaviour
 
     public virtual IEnumerator Death()
     {
+        StopTakingDamage();
         GetComponent<Animator>().SetTrigger(deathTrigger);
         rb.velocity = Vector3.zero;
         GameObject xpOrb = ObjectPoolManager.SpawnObject(GameController.instance.xpOrb, xpDropPosition.position, Quaternion.identity, ObjectPoolManager.PoolType.None);
         GameController.instance.levelManager.AddToOrbList(xpOrb.GetComponent<XPOrb>());
         yield return new WaitForSeconds(waitDeath);
-        GameController.instance.enemyManager.enemyCount--;
-        ObjectPoolManager.RemoveObjectToPool(gameObject);
+        if(!elite)
+        {
+            GameController.instance.enemyManager.enemyCount--;
+            ObjectPoolManager.RemoveObjectToPool(gameObject);
+        }
+        else
+        {
+            Instantiate(scroll, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
+    public void StuckByLightning()
+    {
+        StartCoroutine(BeenStruck());
+    }
+
+    private IEnumerator BeenStruck()
+    {
+        beenStruck = true;
+        yield return new WaitForSeconds(0.4f);
+        beenStruck = false;
+    }
+
+    private IEnumerator KeepTakingDamage(float minMultiplier, float maxMultiplier, float damageMultiplier)
+    {
+        while(keepTakingDamage)
+        {
+            yield return new WaitForSeconds(1 / GameController.instance.playerCharacter.attackSpeed / 2);
+            if (Random.value < playerCharacter.critChance / 100)
+            {
+                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier);
+            }
+            else
+            {
+                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier);
+            }
+        }
+    }
+
+    public void StartTakingDamage(float minMultiplier, float maxMultiplier, float damageMultiplier)
+    {
+        keepTakingDamage = true;
+        StartCoroutine(KeepTakingDamage(minMultiplier, maxMultiplier, damageMultiplier));
+    }
+
+    public void StopTakingDamage()
+    {
+        keepTakingDamage = false;
+        StopCoroutine(KeepTakingDamage(0, 0, 0));
     }
 
     public bool TakeDamage(float damage, bool crit, float damageMultiplier)
@@ -165,12 +240,20 @@ public class Enemy : MonoBehaviour
         if(currentHealth - damage > 0)
         {
             currentHealth -= damage;
+            if (elite)
+            {
+                UpdateHealthBar();
+            }
             GameController.instance.uiManager.ShowDamage(transform, (int)damage, crit, damageMultiplier);
             return true;
         }
         else
         {
             currentHealth -= damage;
+            if(elite)
+            {
+                UpdateHealthBar();
+            }
             GetComponent<BoxCollider2D>().enabled = false;
             GameController.instance.uiManager.ShowDamage(transform, (int)damage, crit, damageMultiplier);
             StartCoroutine(Death());
