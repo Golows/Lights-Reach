@@ -297,6 +297,10 @@ MonoBehaviour:
   attackRange: 0
   damage: 0
   elite: 0
+  deathAudio:
+  - {fileID: 8300000, guid: ee22de881fab82d48869d6005d0c5264, type: 3}
+  - {fileID: 8300000, guid: a68a357eb1473d04abffe4161e9d0fbe, type: 3}
+  - {fileID: 8300000, guid: 3d01cbcf38a47054b85555356a27e5d4, type: 3}
 --- !u!1 &8746258403312629773
 GameObject:
   m_ObjectHideFlags: 0

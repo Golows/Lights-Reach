@@ -48,19 +48,19 @@ public class EnemyBounce : StateMachineBehaviour
 
         if (currentLocationX > 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(-1, -1, 0) * enemy.moveSpeed);
+            rb.AddForce(new Vector3(-1, -1, 0) * enemy.moveSpeed, ForceMode2D.Force);
         }
         else if (currentLocationX < 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(1, 1, 0) * enemy.moveSpeed);
+            rb.AddForce(new Vector3(1, 1, 0) * enemy.moveSpeed, ForceMode2D.Force);
         }
         else if (currentLocationX > 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(-1, 1, 0) * enemy.moveSpeed);
+            rb.AddForce(new Vector3(-1, 1, 0) * enemy.moveSpeed, ForceMode2D.Force);
         }
         else if (currentLocationX < 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(1, -1, 0) * enemy.moveSpeed);
+            rb.AddForce(new Vector3(1, -1, 0) * enemy.moveSpeed, ForceMode2D.Force);
         }
 
 

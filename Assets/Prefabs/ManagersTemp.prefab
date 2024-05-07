@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7328819246192530518}
   - component: {fileID: 6142877322874113117}
+  - component: {fileID: 7138472056458328213}
   - component: {fileID: 3907550319246601235}
   - component: {fileID: 3773442610113653878}
   - component: {fileID: 2171707473209694157}
@@ -17,6 +18,10 @@ GameObject:
   - component: {fileID: 1681482642921236822}
   - component: {fileID: 9207577906256716639}
   - component: {fileID: 5862213883227554707}
+  - component: {fileID: 7982228381548328828}
+  - component: {fileID: 4125017246030284919}
+  - component: {fileID: 7224241979895403677}
+  - component: {fileID: 7879819642207270511}
   m_Layer: 0
   m_Name: ManagersTemp
   m_TagString: Untagged
@@ -58,10 +63,29 @@ MonoBehaviour:
   abilityManager: {fileID: 9207577906256716639}
   spawner: {fileID: 7179633023840629866, guid: c03a40eb183fd244f86476f8c6f5b85c, type: 3}
   uiManager: {fileID: 1681482642921236822}
+  statueManager: {fileID: 4125017246030284919}
+  damageDoneManager: {fileID: 7224241979895403677}
+  progressManager: {fileID: 7879819642207270511}
+  postProcessingManager: {fileID: 7982228381548328828}
+  audioManager: {fileID: 7138472056458328213}
   xpOrb: {fileID: 8020203196138307402, guid: 1a9f458fce2f119468e4e7df6297a723, type: 3}
   levelManager: {fileID: 833146533151028544}
   timeManager: {fileID: 3907550319246601235}
   UI: {fileID: 0}
+  startingArea: 0
+--- !u!114 &7138472056458328213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e4a8680647e1f40ba67ced26b5c858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 8054801783885202285, guid: b1fb37080a8976445ba056913c2cf672, type: 3}
 --- !u!114 &3907550319246601235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,10 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loopTime: 600
+  timer: {fileID: 0}
   timeLeft: 0
   beginPlay: 0
   timeLeft7: 0
   timeLeft3: 0
+  healthMultiplier: 1
+  min: 0
+  sec: 0
 --- !u!114 &3773442610113653878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +122,7 @@ MonoBehaviour:
   scalingMoveSpeedMax: 36
   moveSpeedScaler: 1.42
   projectileCount: 1
+  maxPierce: 5
   CardDamage1: {fileID: 0}
   CardDamage2: {fileID: 0}
   CardAttackSpeed1: {fileID: 0}
@@ -103,6 +132,11 @@ MonoBehaviour:
   CardCritChance: {fileID: 0}
   CardPierce: {fileID: 0}
   CardCritMulti: {fileID: 0}
+  CardFireballPlus: {fileID: 0}
+  CardHealthRegen: {fileID: 0}
+  CardHealth: {fileID: 0}
+  AbilityCardLightning: {fileID: 0}
+  AbilityCardTornados: {fileID: 0}
 --- !u!114 &2171707473209694157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,10 +152,12 @@ MonoBehaviour:
   bull: {fileID: 8623896217763991128, guid: 08ea47b3e0d6c90429fc6470aa746503, type: 3}
   kite: {fileID: 8068853932669687192, guid: 8958eef05fd5ddb4bab8c01120049094, type: 3}
   slime: {fileID: 5222795359672456917, guid: f0005370b76b3a043a954b3628c57b54, type: 3}
+  spawnTime: 0
   enemyCount: 0
   startedSpawningBull: 0
   startedSpawningSlime: 0
   startedSpawningKite: 0
+  started5Seconds: 0
 --- !u!114 &833146533151028544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentXp: 0
+  currentXpNotAddative: 0
   requiredXp: 0
   requiredXpAdditive: 0
   currentLevel: 0
@@ -154,11 +191,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6a1a37661b967458063970affc2daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: {fileID: 0}
+  hpText: {fileID: 0}
+  xpText: {fileID: 0}
+  levelText: {fileID: 0}
   damageText: {fileID: 8476939865805061792, guid: badca3892b552d7428cff8882bf3182e, type: 3}
   UI: {fileID: 0}
+  escapeMenue: {fileID: 0}
+  xpBar: {fileID: 0}
+  hpBar: {fileID: 0}
+  coins: {fileID: 0}
+  playerCharacter: {fileID: 0}
+  playerMovement: {fileID: 0}
+  levelLoader: {fileID: 0}
   minMultiplier: 0.93
   maxMultiplier: 1.07
+  startingArea: 0
+  deathScreen: {fileID: 0}
+  fireDamage: {fileID: 0}
+  lightningDamage: {fileID: 0}
+  windDamage: {fileID: 0}
+  totalDamage: {fileID: 0}
+  timeSurvived: {fileID: 0}
+  enemiesKilled: {fileID: 0}
 --- !u!114 &9207577906256716639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +226,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireBall: {fileID: 7790183289916257035, guid: 5af176adddd0d474eb0810e5e1e48f30, type: 3}
+  chainLightning: {fileID: 0}
+  tornado: {fileID: 0}
+  speed: 0
 --- !u!114 &5862213883227554707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,3 +242,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+--- !u!114 &7982228381548328828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f7aba57bfd8884891063ccabe8321b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: {fileID: 0}
+--- !u!114 &4125017246030284919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e3082d01f708041a85d948f87e19c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statue: {fileID: 6701949476765487009, guid: 2f623245098228142829742a29e8d941, type: 3}
+  arrow: {fileID: 1261024717832347350, guid: 91c40980f7bd1d64bb5e9f319a93cf54, type: 3}
+  locations:
+  - {x: 108, y: 137, z: 0}
+  - {x: -126, y: 111, z: 0}
+  - {x: -104, y: -150, z: 0}
+  - {x: 145, y: -176, z: 0}
+--- !u!114 &7224241979895403677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5c722d2ef93a44485d432a5385dc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireballDamageDone: 0
+  lightningDamageDone: 0
+  tornadoDamageDone: 0
+--- !u!114 &7879819642207270511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32166a34ac24041448b455073504e946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerProgress:
+    coins: 0
+    healthUpgrade: 0
+    damageUpgrade: 0
+    attackSpeedUpgrade: 0
+    pickupRangeUpgrade: 0
+    moveSpeedUpgrade: 0
+    critChangeUpgrade: 0
+    damageReductionUpgrade: 0
+    healthRegenUpgrade: 0
+    dashCooldownUpgrade: 0
+  gameCoins: 0
+  healthIncrease: 0
+  damageIncrease: 0
+  attackSpeedIncrease: 0
+  pickupRangeIncrease: 0
+  moveSpeedIncrease: 0
+  critChangeIncrease: 0
+  damageReductionIncrease: 0
+  healthRegenIncrease: 0
+  dashCooldownDecrease: 0
+  startingArea: 0

@@ -9,13 +9,13 @@ public class AbilityManager : MonoBehaviour
     public GameObject chainLightning;
     public GameObject tornado;
 
-    private float speed;
+    [SerializeField] private float speed;
     private bool useFireBall = true;
     private bool onCooldownFireball = false;
     private float fireballCooldown = 0;
     private List<GameObject> tornados = new List<GameObject>();
 
-    private void Start()
+    public void StartFireBall()
     {
         speed = 1 / GameController.instance.playerCharacter.attackSpeed;
         StartCoroutine(SpawnFireBall());
@@ -50,9 +50,9 @@ public class AbilityManager : MonoBehaviour
     {
         while(true)
         {
+            yield return new WaitForSeconds(speed * 2f);
             var lightning = Instantiate(chainLightning, GameController.instance.character.transform.position, Quaternion.identity);
             lightning.GetComponent<ChainLightning>().basePierce += GameController.instance.playerCharacter.pierce;
-            yield return new WaitForSeconds(speed * 2f);
         }
     }
 
@@ -60,6 +60,9 @@ public class AbilityManager : MonoBehaviour
     {
         while(useFireBall)
         {
+            onCooldownFireball = true;
+            yield return new WaitForSeconds(speed);
+            onCooldownFireball = false;
             speed = 1 / GameController.instance.playerCharacter.attackSpeed;
             fireballCooldown = speed;
             if(GameController.instance.upgradeManager.projectileCount == 1)
@@ -72,10 +75,6 @@ public class AbilityManager : MonoBehaviour
                 FireBallCreate4();
             else if (GameController.instance.upgradeManager.projectileCount == 5)
                 FireBallCreate5();
-
-            onCooldownFireball = true;
-            yield return new WaitForSeconds(speed);
-            onCooldownFireball = false;
         }
         
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chicken
   m_EditorClassIdentifier: 
   enemyName: Aitvaras
-  health: 500
+  health: 138
   speed: 6
   attackRange: 0
   damage: 12

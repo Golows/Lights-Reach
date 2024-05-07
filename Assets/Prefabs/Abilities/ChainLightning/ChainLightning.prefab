@@ -86,7 +86,7 @@ MonoBehaviour:
   chainLightning: {fileID: 7625397647527644584}
   minMultiplier: 0.8
   maxMultiplier: 1.2
-  damageMultiplier: 0.6
+  damageMultiplier: 1
   basePierce: 2
   particleSystemLightning: {fileID: 0}
 --- !u!95 &8598655541821809839

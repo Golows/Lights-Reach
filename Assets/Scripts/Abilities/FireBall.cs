@@ -65,7 +65,7 @@ public class FireBall : MonoBehaviour
             {
                 if(enemy != null)
                 {
-                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier);
+                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier, Enemy.DamageType.fireball);
                     if(hit)
                         pierceCount--;
                 }  
@@ -74,7 +74,7 @@ public class FireBall : MonoBehaviour
             {
                 if (enemy != null)
                 {
-                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier);
+                    hit = enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier, Enemy.DamageType.fireball);
                     if(hit)
                         pierceCount--;
                 }

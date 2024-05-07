@@ -59,11 +59,11 @@ public class ChainLightning : MonoBehaviour
                 {
                     if (Random.value < playerCharacter.critChance / 100)
                     {
-                        enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier);
+                        enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier, Enemy.DamageType.lightning);
                     }
                     else
                     {
-                        enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier);
+                        enemy.TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier, Enemy.DamageType.lightning);
                     }
                 }
                 

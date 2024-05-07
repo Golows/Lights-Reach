@@ -9,6 +9,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject _objectPoolEmptyHolder;
     private static GameObject _enemiesEmpty;
+    private static GameObject _audioEmpty;
     private static GameObject _abilitiesEmpty;
     [SerializeField] private GameObject ui;
     private static GameObject _UIMain;
@@ -18,6 +19,7 @@ public class ObjectPoolManager : MonoBehaviour
         Enemies,
         Abilities,
         UI,
+        Audio,
         None
     }
 
@@ -37,6 +39,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         _enemiesEmpty = new GameObject("Pooled Enemies");
         _enemiesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _audioEmpty = new GameObject("Audio");
+        _audioEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
 
         _UIMain = ui;
     }
@@ -109,6 +114,8 @@ public class ObjectPoolManager : MonoBehaviour
                 return _enemiesEmpty;
             case PoolType.UI:
                 return _UIMain;
+            case PoolType.Audio:
+                return _audioEmpty;
             case PoolType.None:
                 return null;
             default:

@@ -26,8 +26,16 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public float damage;
     private PlayerCharacter playerCharacter;
-    public bool elite = false;
+    public bool elite = false;  
+
+    [SerializeField] AudioClip[] deathAudio;
     
+    public enum DamageType
+    {
+        fireball,
+        lightning,
+        tornado
+    }
 
     private void Awake()
     {
@@ -42,7 +50,8 @@ public class Enemy : MonoBehaviour
         playerMovement = GameController.instance.character.GetComponent<PlayerMovement>();
         if(!elite)
         {
-            currentHealth = enemyData.health;
+            maxHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
+            currentHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
             moveSpeed = enemyData.speed;
             attackRange = enemyData.attackRange;
             damage = enemyData.damage;
@@ -55,7 +64,8 @@ public class Enemy : MonoBehaviour
         isFlipped = false;
         GetComponent<Animator>().ResetTrigger(deathTrigger);
         GetComponent<BoxCollider2D>().enabled = true;
-        currentHealth = enemyData.health;
+        maxHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
+        currentHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
     }
 
     public virtual void FixedUpdate()
@@ -177,6 +187,10 @@ public class Enemy : MonoBehaviour
         rb.velocity = Vector3.zero;
         GameObject xpOrb = ObjectPoolManager.SpawnObject(GameController.instance.xpOrb, xpDropPosition.position, Quaternion.identity, ObjectPoolManager.PoolType.None);
         GameController.instance.levelManager.AddToOrbList(xpOrb.GetComponent<XPOrb>());
+        GameController.instance.progressManager.gameCoins++;
+        GameController.instance.uiManager.UpdateCoins();
+        GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.2zf);
+        
         yield return new WaitForSeconds(waitDeath);
         if(!elite)
         {
@@ -209,11 +223,11 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(1 / GameController.instance.playerCharacter.attackSpeed / 2);
             if (Random.value < playerCharacter.critChance / 100)
             {
-                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier);
+                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier) * playerCharacter.critMultiplier, true, damageMultiplier, DamageType.tornado);
             }
             else
             {
-                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier);
+                TakeDamage(Random.Range(playerCharacter.damage * damageMultiplier * minMultiplier, playerCharacter.damage * damageMultiplier * maxMultiplier), false, damageMultiplier, DamageType.tornado);
             }
         }
     }
@@ -230,7 +244,7 @@ public class Enemy : MonoBehaviour
         StopCoroutine(KeepTakingDamage(0, 0, 0));
     }
 
-    public bool TakeDamage(float damage, bool crit, float damageMultiplier)
+    public bool TakeDamage(float damage, bool crit, float damageMultiplier, DamageType damageType)
     {
         if (currentHealth < 0)
         {
@@ -240,6 +254,22 @@ public class Enemy : MonoBehaviour
         if(currentHealth - damage > 0)
         {
             currentHealth -= damage;
+
+            switch (damageType)
+            {
+                case DamageType.fireball:
+                    GameController.instance.damageDoneManager.fireballDamageDone += Mathf.RoundToInt(damage);
+                    break;
+                case DamageType.lightning:
+                    GameController.instance.damageDoneManager.lightningDamageDone += Mathf.RoundToInt(damage);
+                    break;
+                case DamageType.tornado:
+                    GameController.instance.damageDoneManager.tornadoDamageDone += Mathf.RoundToInt(damage);
+                    break;
+                default:
+                    break;
+            }
+
             if (elite)
             {
                 UpdateHealthBar();
@@ -249,6 +279,20 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            switch (damageType)
+            {
+                case DamageType.fireball:
+                    GameController.instance.damageDoneManager.fireballDamageDone += Mathf.RoundToInt(currentHealth);
+                    break;
+                case DamageType.lightning:
+                    GameController.instance.damageDoneManager.lightningDamageDone += Mathf.RoundToInt(currentHealth);
+                    break;
+                case DamageType.tornado:
+                    GameController.instance.damageDoneManager.tornadoDamageDone += Mathf.RoundToInt(currentHealth);
+                    break;
+                default:
+                    break;
+            }
             currentHealth -= damage;
             if(elite)
             {

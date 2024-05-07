@@ -14,9 +14,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject escapeMenue;
     [SerializeField] private Image xpBar;
     [SerializeField] private Image hpBar;
+    [SerializeField] private TextMeshProUGUI coins;
 
-    private PlayerCharacter playerCharacter;
+    public PlayerCharacter playerCharacter;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private LevelLoader levelLoader;
 
     private Vector2 scale1 = new Vector3(0.7f, 0.7f, 0.7f);
     private Vector2 scale2 = new Vector3(0.9f, 0.9f, 0.9f);
@@ -28,18 +30,30 @@ public class UIManager : MonoBehaviour
 
     private bool inMenue = false;
     public bool startingArea = false;
+    private bool died = false;
+
+    [SerializeField] private GameObject deathScreen;
+    [SerializeField] private TextMeshProUGUI fireDamage;
+    [SerializeField] private TextMeshProUGUI lightningDamage;
+    [SerializeField] private TextMeshProUGUI windDamage;
+    [SerializeField] private TextMeshProUGUI totalDamage;
+    [SerializeField] private TextMeshProUGUI timeSurvived;
+    [SerializeField] private TextMeshProUGUI enemiesKilled;
 
     private void Start()
     {
-        if(!startingArea)
+        playerMovement = GameController.instance.character.GetComponent<PlayerMovement>();
+    }
+
+    public void UpdateOnStart()
+    {
+        if (!startingArea)
         {
-            playerCharacter = GameController.instance.playerCharacter;
-            playerMovement = GameController.instance.character.GetComponent<PlayerMovement>();
             UpdateHealth();
             UpdateExperience();
             UpdateLevel();
+            UpdateCoins();
         }
-            
     }
 
     private void Update()
@@ -65,6 +79,37 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ExitToMainMenue()
+    {
+        Time.timeScale = 1f;
+        escapeMenue.SetActive(false);
+        levelLoader.LoadNextScene(0);
+
+    }
+
+    public void OnDeathScreen()
+    {
+        if(!died)
+        {
+            deathScreen.SetActive(true);
+            DamageDoneManager damageDone = GameController.instance.damageDoneManager;
+            fireDamage.text += damageDone.fireballDamageDone.ToString();
+            lightningDamage.text += damageDone.lightningDamageDone.ToString();
+            windDamage.text += damageDone.tornadoDamageDone.ToString();
+            totalDamage.text += (damageDone.fireballDamageDone + damageDone.lightningDamageDone + damageDone.tornadoDamageDone).ToString();
+            timeSurvived.text += (9 - GameController.instance.timeManager.min).ToString() + ":" + (60 - GameController.instance.timeManager.sec).ToString();
+            enemiesKilled.text += GameController.instance.progressManager.gameCoins.ToString();
+            died = true;
+        }
+    }
+
+    public void Continue()
+    {
+        deathScreen.SetActive(false);
+        Time.timeScale = 1f;
+        levelLoader.LoadAfterDeath(0);
+    }
+
     public void ExitGame()
     {
         Application.Quit();
@@ -79,6 +124,16 @@ public class UIManager : MonoBehaviour
         inMenue = false;
         playerMovement.enabled = true;
         escapeMenue.SetActive(false);
+    }
+    
+    public void UpdateToalCoins()
+    {
+        coins.text = GameController.instance.progressManager.playerProgress.coins.ToString();
+    }
+
+    public void UpdateCoins()
+    {
+        coins.text = GameController.instance.progressManager.gameCoins.ToString();
     }
 
     public void UpdateHealth()

@@ -20,6 +20,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int baseXpAdd = 70;
     [SerializeField] private int afterMultiplyAdd = 0;
 
+    [SerializeField] private AudioClip levelUpAudio;
+
     private void Start()
     {
         NextLevel(0);
@@ -43,6 +45,8 @@ public class LevelManager : MonoBehaviour
         requiredXp = (baseXpMult * Mathf.Pow(multiplier, currentLevel) + baseXpAdd) * currentLevel + afterMultiplyAdd;
         currentXpNotAddative = overCap;
         requiredXpAdditive += requiredXp;
+        if(currentLevel > 1)
+            GameController.instance.audioManager.PlaySoundEffect(levelUpAudio, GameController.instance.character.transform, 1f);
         GameController.instance.uiManager.UpdateLevel();
     }
 

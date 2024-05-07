@@ -22,6 +22,8 @@ public class UpgradeManager : MonoBehaviour
     private GameObject card1, card2, card3;
     private Vector3 uiPosition;
 
+    public int maxPierce = 5;
+
 
     //Stat card prefabs
     [SerializeField] private GameObject CardDamage1, CardDamage2, CardAttackSpeed1, CardAttackSpeed2,
@@ -104,6 +106,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void GetCards()
     {
+        ClearCards();
+
         uiPosition = GameController.instance.UI.transform.position;
 
         random1 = Random.Range(0, powerCards.Count);
@@ -133,6 +137,8 @@ public class UpgradeManager : MonoBehaviour
 
     public void GetAbilities()
     {
+        ClearCards(); 
+
         uiPosition = GameController.instance.UI.transform.position;
         random1 = Random.Range(0, abilityCards.Count);
         card1 = abilityCards[random1];
@@ -220,12 +226,12 @@ public class UpgradeManager : MonoBehaviour
 
     public void IncreasePierce()
     {
-        if(playerCharacter.pierce < 5)
+        if(playerCharacter.pierce < maxPierce)
         {
             playerCharacter.pierce += 1;
         }
 
-        if(playerCharacter.pierce == 5)
+        if(playerCharacter.pierce == maxPierce)
         {
             for(int i = 0; i < powerCards.Count; i++)
             {
@@ -299,6 +305,25 @@ public class UpgradeManager : MonoBehaviour
     {
         playerCharacter.critChance += amount;
         RemoveCards();
+    }
+
+    private void ClearCards()
+    {
+        if (card1 != null)
+        {
+            card1.SetActive(false);
+            card1 = null;
+        }
+        if (card2 != null)
+        {
+            card2.SetActive(false);
+            card3 = null;
+        }
+        if (card3 != null)
+        {
+            card3.SetActive(false);
+            card3 = null;
+        }
     }
 
     private void RemoveCards()

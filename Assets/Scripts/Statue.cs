@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Statue : MonoBehaviour
@@ -11,6 +12,7 @@ public class Statue : MonoBehaviour
     [SerializeField] private GameObject textObject;
     [SerializeField] private GameObject circle;
     [SerializeField] private GameObject eliteBull;
+    public GameObject arrow;
     private bool charging = false;
     private bool charged = false;
 
@@ -33,7 +35,8 @@ public class Statue : MonoBehaviour
                 textObject.SetActive(false);
                 circle.SetActive(false);
                 animator.SetTrigger(exit);
-                SpawnBoss();
+                SpawnBullBoss();
+                arrow.SetActive(false);
                 StopCoroutine(Charge());
             }
             yield return new WaitForSeconds(1);
@@ -50,17 +53,17 @@ public class Statue : MonoBehaviour
         }
     }
 
-    private void SpawnBoss()
+    private void SpawnBullBoss()
     {
         GameObject elite = Instantiate(eliteBull, new Vector3(transform.position.x, transform.position.y-2f, transform.position.z), Quaternion.identity);
 
         Enemy enemy = elite.GetComponent<Enemy>();
-        enemy.currentHealth = 500;
+        enemy.currentHealth = 10000;
         enemy.moveSpeed = 3.8f;
         elite.GetComponent<BoxCollider2D>().isTrigger = true;
-        enemy.attackRange = 1f;
-        enemy.damage = 30;
-        enemy.maxHealth = 500;
+        enemy.attackRange = 1.2f;
+        enemy.damage = 50;
+        enemy.maxHealth = 10000;
         enemy.healthBarPrefab.SetActive(true);
         elite.GetComponent<SpriteRenderer>().color = new Color(0.8301887f, 0.4268423f, 0.4268423f);
         enemy.elite = true;

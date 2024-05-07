@@ -16,11 +16,10 @@ public class XPOrb : MonoBehaviour
 
     [SerializeField] private float distanceToCollect = 0.5f;
 
-    private float nextTime = 0.0f;
-    private float timeWait = 1f;
-
     [SerializeField] private float minMultiplier = 0.85f;
     [SerializeField] private float maxMultiplier = 1.15f;
+
+    [SerializeField] private AudioClip[] audioClips;
 
     private void Awake()
     {
@@ -42,21 +41,8 @@ public class XPOrb : MonoBehaviour
             if (Vector3.SqrMagnitude(playerTransform.position - transform.position) < distanceToCollect * distanceToCollect)
             {
                 GameController.instance.levelManager.AddXp(Random.Range((int)(xpAmount * minMultiplier), (int)(xpAmount * maxMultiplier) + 1));
+                GameController.instance.audioManager.PlaySoundEffectsInARow(audioClips, transform, 0.5f);
                 DestroyObject();
-            }
-        }
-
-        if (Time.time > nextTime)
-        {
-            nextTime = Time.time + timeWait;
-
-            if(lightAura.enabled && Vector3.Distance(playerTransform.position, gameObject.transform.position) > 13f)
-            {
-                lightAura.enabled = false;
-            }
-            else if(!lightAura.enabled && Vector3.Distance(playerTransform.position, gameObject.transform.position) < 13f)
-            {
-                lightAura.enabled = true;
             }
         }
     }

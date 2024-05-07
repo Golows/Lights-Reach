@@ -38,6 +38,7 @@ public class EnemyRun : StateMachineBehaviour
         Vector2 newPos = Vector2.MoveTowards(rb.position, new Vector2(target.x+offsetX, target.y + offsetY), enemy.moveSpeed * Time.fixedDeltaTime);
         rb.MovePosition(newPos);
 
+
         if (Time.time >= nextTime)
         {
             

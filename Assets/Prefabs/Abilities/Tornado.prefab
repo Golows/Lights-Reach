@@ -137,7 +137,7 @@ MonoBehaviour:
   angle: 0
   minMultiplier: 0.8
   maxMultiplier: 1.2
-  damageMultiplier: 0.2
+  damageMultiplier: 0.1
 --- !u!95 &2142817870208770255
 Animator:
   serializedVersion: 5

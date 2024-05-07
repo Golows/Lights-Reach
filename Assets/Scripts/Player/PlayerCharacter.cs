@@ -9,6 +9,7 @@ public class PlayerCharacter : MonoBehaviour
 {
     public Camera mainCamera;
     [SerializeField] private Animator animator;
+    [SerializeField] private CircleCollider2D circleCollider;
 
     //Stats
     public float baseMoveSpeed;
@@ -31,6 +32,7 @@ public class PlayerCharacter : MonoBehaviour
     [SerializeField] private float baseHealthRegen;
     [NonSerialized] public float healthRegen;
 
+    public float basePickupRanage;
 
     public float critChance;
 
@@ -47,27 +49,34 @@ public class PlayerCharacter : MonoBehaviour
 
     public float damageReduction = 0;
 
-    public bool startingArea = false;
-
-    private void Awake()
+    public void Start()
     {
-        SetStartStats();
+        GameController.instance.progressManager.UpdateStatsFromProgress();
     }
 
-    private void SetStartStats()
+    public void SetStartStats(PlayerProgress playerProgress)
     {
         dead = false;
-        moveSpeed = baseMoveSpeed;
-        dashCooldown = baseDashCooldown;
+
+        health = baseHealth + GameController.instance.progressManager.healthIncrease * playerProgress.healthUpgrade;
+        currentHealth = baseHealth + GameController.instance.progressManager.healthIncrease * playerProgress.healthUpgrade;
+        damage = baseDamage + GameController.instance.progressManager.damageIncrease * playerProgress.damageUpgrade;
+        attackSpeed = baseAttackSpeed + GameController.instance.progressManager.attackSpeedIncrease * playerProgress.attackSpeedUpgrade;
+        basePickupRanage = basePickupRanage + GameController.instance.progressManager.pickupRangeIncrease * playerProgress.pickupRangeUpgrade;
+        moveSpeed = baseMoveSpeed + GameController.instance.progressManager.moveSpeedIncrease * playerProgress.moveSpeedUpgrade;
+        critChance = critChance + GameController.instance.progressManager.critChangeIncrease * playerProgress.critChangeUpgrade;
+        damageReduction = damageReduction + GameController.instance.progressManager.damageReductionIncrease * playerProgress.damageReductionUpgrade;
+        healthRegen = healthRegen + GameController.instance.progressManager.healthRegenIncrease * playerProgress.healthRegenUpgrade;
+        dashCooldown = baseDashCooldown - GameController.instance.progressManager.dashCooldownDecrease * playerProgress.dashCooldownUpgrade;
         dashSpeed = baseDashSpeed;
         dashTime = dashLenght / dashSpeed;
-        health = baseHealth;
-        currentHealth = health;
-        damage = baseDamage;
-        attackSpeed = baseAttackSpeed;
         critMultiplier = baseCritMultiplier;
-        healthRegen = baseHealthRegen;
+        circleCollider.radius = basePickupRanage;
         StartCoroutine(HealthRegeneration());
+        if(GameController.instance.abilityManager != null)
+            GameController.instance.abilityManager.StartFireBall();
+        GameController.instance.uiManager.playerCharacter = GameController.instance.playerCharacter;
+        GameController.instance.uiManager.UpdateOnStart();
     }
 
     public void TakeDamage(float damage)
@@ -77,6 +86,7 @@ public class PlayerCharacter : MonoBehaviour
         {
             currentHealth -= damage;
             GameController.instance.uiManager.UpdateHealth();
+            GameController.instance.postProcessingManager.TakeDamageStartEffect();
         }
         else
         {
@@ -113,6 +123,8 @@ public class PlayerCharacter : MonoBehaviour
         dead = true;
         yield return new WaitForSeconds(1.667f);
         Time.timeScale = 0f;
+        GameController.instance.uiManager.OnDeathScreen();
+        GameController.instance.progressManager.SaveCoinProgress();
     }
 
     private void Die()
