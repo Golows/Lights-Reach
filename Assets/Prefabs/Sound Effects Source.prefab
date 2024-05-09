@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7525835603349802025}
   - component: {fileID: 2594027659866213136}
   m_Layer: 0
-  m_Name: AudioSource
+  m_Name: Sound Effects Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 8054801783885202285}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5772293927665270289, guid: c7d06e0645d4cbf4fbaa0edecd8636c3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

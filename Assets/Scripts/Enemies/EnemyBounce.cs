@@ -44,31 +44,31 @@ public class EnemyBounce : StateMachineBehaviour
             return;
         }
 
-        enemy.Flip();       
+        enemy.Flip();
 
         if (currentLocationX > 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(-1, -1, 0) * enemy.moveSpeed, ForceMode2D.Force);
+            rb.velocity = new Vector3(-1, -1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX < 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(1, 1, 0) * enemy.moveSpeed, ForceMode2D.Force);
+            rb.velocity = new Vector3(1, 1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX > 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(-1, 1, 0) * enemy.moveSpeed, ForceMode2D.Force);
+            rb.velocity = new Vector3(-1, 1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX < 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(1, -1, 0) * enemy.moveSpeed, ForceMode2D.Force);
+            rb.velocity = new Vector3(1, -1, 0).normalized * enemy.moveSpeed;
         }
-
-
 
         if (Time.time >= nextTime)
         {
             rb.velocity = Vector3.zero;
             animator.SetTrigger(jumpTrigger);
+
+            
         }
     }
 

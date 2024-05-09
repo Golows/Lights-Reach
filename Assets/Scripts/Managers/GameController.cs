@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour
     public DamageDoneManager damageDoneManager;
     public ProgressManager progressManager;
     public PostProcessingManager postProcessingManager;
+    public SoundMixerManager soundMixerManager;
     public AudioManager audioManager;
     [NonSerialized] public PlayerCharacter playerCharacter;
     [NonSerialized] public Transform playerTransform;
@@ -26,6 +28,7 @@ public class GameController : MonoBehaviour
     public LevelManager levelManager;
     public TimeManager timeManager;
     public GameObject UI;
+    public InputActionAsset actions;
 
     public bool startingArea = false;
 
@@ -36,8 +39,11 @@ public class GameController : MonoBehaviour
         playerCharacter = character.GetComponent<PlayerCharacter>();
         playerTransform = character.transform;
         Time.timeScale = 1f;
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 144;
-    }
 
+        var rebinds = PlayerPrefs.GetString("rebinds");
+        if (!string.IsNullOrEmpty(rebinds))
+        {
+            actions.LoadBindingOverridesFromJson(rebinds);
+        } 
+    }
 }

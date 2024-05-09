@@ -35,6 +35,10 @@ public class UpgradeManager : MonoBehaviour
     private List<GameObject> utilityCards = new List<GameObject>();
     private List<GameObject> abilityCards = new List<GameObject>();
 
+
+    public bool pickingPowers = false;
+    public bool pickingAbilities = false;
+
     private void Start()
     {
         playerCharacter = GameController.instance.character.GetComponent<PlayerCharacter>();
@@ -106,37 +110,42 @@ public class UpgradeManager : MonoBehaviour
 
     public void GetCards()
     {
-        ClearCards();
-
-        uiPosition = GameController.instance.UI.transform.position;
-
-        random1 = Random.Range(0, powerCards.Count);
-        card1 = powerCards[random1];
-
-        random2 = Random.Range(0, powerCards.Count);
-        card2 = powerCards[random2];
-
-        random3 = Random.Range(0, utilityCards.Count);
-        card3 = utilityCards[random3];
-
-        while (card1.name == card2.name || (card1 == CardDamage2 && card2 == CardDamage1) || (card1 == CardDamage1 && card2 == CardDamage2)
-                                       || (card1 == CardAttackSpeed1 && card2 == CardAttackSpeed2) || (card1 == CardAttackSpeed2 && card2 == CardAttackSpeed1))
+        pickingPowers = true;
+        if(!pickingAbilities)
         {
+            ClearCards();
+
+            uiPosition = GameController.instance.UI.transform.position;
+
+            random1 = Random.Range(0, powerCards.Count);
+            card1 = powerCards[random1];
+
             random2 = Random.Range(0, powerCards.Count);
             card2 = powerCards[random2];
+
+            random3 = Random.Range(0, utilityCards.Count);
+            card3 = utilityCards[random3];
+
+            while (card1.name == card2.name || (card1 == CardDamage2 && card2 == CardDamage1) || (card1 == CardDamage1 && card2 == CardDamage2)
+                                           || (card1 == CardAttackSpeed1 && card2 == CardAttackSpeed2) || (card1 == CardAttackSpeed2 && card2 == CardAttackSpeed1))
+            {
+                random2 = Random.Range(0, powerCards.Count);
+                card2 = powerCards[random2];
+            }
+
+            card1.transform.position = new Vector3(uiPosition.x - Screen.width / 4, uiPosition.y, uiPosition.z);
+            card2.transform.position = uiPosition;
+            card3.transform.position = new Vector3(uiPosition.x + Screen.width / 4, uiPosition.y, uiPosition.z);
+
+            card1.SetActive(true);
+            card2.SetActive(true);
+            card3.SetActive(true);
         }
-
-        card1.transform.position = new Vector3(uiPosition.x - 500f, uiPosition.y, uiPosition.z);
-        card2.transform.position = uiPosition;
-        card3.transform.position = new Vector3(uiPosition.x + 500f, uiPosition.y, uiPosition.z);
-
-        card1.SetActive(true);
-        card2.SetActive(true);
-        card3.SetActive(true);
     }
 
     public void GetAbilities()
     {
+        pickingAbilities = true;
         ClearCards(); 
 
         uiPosition = GameController.instance.UI.transform.position;
@@ -156,7 +165,7 @@ public class UpgradeManager : MonoBehaviour
             card2.SetActive(true);
         }
 
-        card1.transform.position = new Vector3(uiPosition.x - 500f, uiPosition.y, uiPosition.z);
+        card1.transform.position = new Vector3(uiPosition.x - Screen.width / 4, uiPosition.y, uiPosition.z);
 
         card1.SetActive(true);
         
@@ -167,6 +176,7 @@ public class UpgradeManager : MonoBehaviour
         abilityManager.SpawnLightning();
         abilityCards.Remove(AbilityCardLightning);
         RemoveCards();
+        pickingAbilities = false;
     }
 
     public void UnlockTornado()
@@ -174,6 +184,7 @@ public class UpgradeManager : MonoBehaviour
         abilityManager.SpawnTornado();
         abilityCards.Remove(AbilityCardTornados);
         RemoveCards();
+        pickingAbilities = false;
     }
 
     public void MoveSpeedUpgrade(float increase)
@@ -200,6 +211,7 @@ public class UpgradeManager : MonoBehaviour
             }
         }
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void FireBallCountUpgrade()
@@ -222,6 +234,7 @@ public class UpgradeManager : MonoBehaviour
         }
 
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void IncreasePierce()
@@ -244,6 +257,7 @@ public class UpgradeManager : MonoBehaviour
         }
 
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeDamage(float amount)
@@ -251,12 +265,14 @@ public class UpgradeManager : MonoBehaviour
         dmgMult += amount;
         playerCharacter.damage = playerCharacter.baseDamage * (1 + dmgMult);
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeHpRegeneration(float amount)
     {
         playerCharacter.healthRegen += amount;
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeHealth(float amount)
@@ -267,6 +283,7 @@ public class UpgradeManager : MonoBehaviour
         playerCharacter.health += increaseAmount;
         GameController.instance.uiManager.UpdateHealth();
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeAttackSpeed(float amount)
@@ -274,6 +291,7 @@ public class UpgradeManager : MonoBehaviour
         attackSpeedMult += amount;
         playerCharacter.attackSpeed = playerCharacter.baseAttackSpeed * (1 + attackSpeedMult);
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeCritMulti(float amount)
@@ -281,6 +299,7 @@ public class UpgradeManager : MonoBehaviour
         critMult += amount;
         playerCharacter.critMultiplier = playerCharacter.baseCritMultiplier * (1 + critMult);
         RemoveCards();
+        pickingPowers = false;
     }
 
     public void UpgradeDamageReduction(float amount)
@@ -299,12 +318,14 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
         }
+        pickingPowers = false;
     }
 
     public void UpgradeCritChance(float amount)
     {
         playerCharacter.critChance += amount;
         RemoveCards();
+        pickingPowers = false;
     }
 
     private void ClearCards()

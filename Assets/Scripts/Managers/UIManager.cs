@@ -16,6 +16,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image hpBar;
     [SerializeField] private TextMeshProUGUI coins;
 
+    [SerializeField] private GameObject settingsMenue;
+    [SerializeField] private GameObject graphicsMenue;
+    [SerializeField] private GameObject soundsMenue;
+    [SerializeField] private GameObject keybindingsMenue;
+
     public PlayerCharacter playerCharacter;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private LevelLoader levelLoader;
@@ -32,6 +37,11 @@ public class UIManager : MonoBehaviour
     public bool startingArea = false;
     private bool died = false;
 
+    private bool inGraphics = true;
+    private bool inSounds = false;
+    private bool inKeybinds = false;
+    private bool inSettings = false;
+
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private TextMeshProUGUI fireDamage;
     [SerializeField] private TextMeshProUGUI lightningDamage;
@@ -39,6 +49,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalDamage;
     [SerializeField] private TextMeshProUGUI timeSurvived;
     [SerializeField] private TextMeshProUGUI enemiesKilled;
+
+    [SerializeField] private GameObject progressUi;
+
+    public bool pogressUIOpen = false;
 
     private void Start()
     {
@@ -64,13 +78,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void OpenProgressUi()
+    {
+        Time.timeScale = 0;
+        pogressUIOpen = true;
+        progressUi.SetActive(true);
+    }
+
     private void OpenEscapeMenue()
     {
-        if(inMenue)
+        if(inMenue || pogressUIOpen)
         {
             BackToGame();
         }
-        else
+        else if(!pogressUIOpen)
         {
             Time.timeScale = 0;
             inMenue = true;
@@ -84,7 +105,6 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         escapeMenue.SetActive(false);
         levelLoader.LoadNextScene(0);
-
     }
 
     public void OnDeathScreen()
@@ -117,15 +137,75 @@ public class UIManager : MonoBehaviour
 
     public void BackToGame()
     {
-        if (!playerCharacter.dead)
+        if(inSettings)
         {
-            Time.timeScale = 1.0f;
+            settingsMenue.SetActive(false);
+            escapeMenue.SetActive(true);
+            inSettings = false;
         }
-        inMenue = false;
-        playerMovement.enabled = true;
+        else
+        {
+            if (!playerCharacter.dead && !GameController.instance.upgradeManager.pickingPowers && !GameController.instance.upgradeManager.pickingAbilities)
+            {
+                Time.timeScale = 1.0f;
+            }
+            inMenue = false;
+            playerMovement.enabled = true;
+            escapeMenue.SetActive(false);
+            progressUi.SetActive(false);
+            pogressUIOpen = false;
+        }    
+    }
+
+    public void OpenSettings()
+    {
+        inSettings = true;
+        settingsMenue.SetActive(true);
+        if(inSounds)
+        {
+            OpenSoundSettings();
+        }
+        if (inGraphics)
+        {
+            OpenGraphicSettings();
+        }
+        if (inKeybinds)
+        {
+            OpenKeybindSettings();
+        }
         escapeMenue.SetActive(false);
     }
-    
+
+    public void OpenSoundSettings()
+    {
+        inSounds = true;
+        inGraphics = false;
+        inKeybinds = false;
+        graphicsMenue.SetActive(false);
+        soundsMenue.SetActive(true);
+        keybindingsMenue.SetActive(false);
+    }
+
+    public void OpenGraphicSettings()
+    {
+        inSounds = false;
+        inGraphics = true;
+        inKeybinds = false;
+        graphicsMenue.SetActive(true);
+        soundsMenue.SetActive(false);
+        keybindingsMenue.SetActive(false);
+    }
+
+    public void OpenKeybindSettings()
+    {
+        inSounds = false;
+        inGraphics = false;
+        inKeybinds = true;
+        graphicsMenue.SetActive(false);
+        soundsMenue.SetActive(false);
+        keybindingsMenue.SetActive(true);
+    }
+
     public void UpdateToalCoins()
     {
         coins.text = GameController.instance.progressManager.playerProgress.coins.ToString();

@@ -5,8 +5,39 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject soundEffect;
+    [SerializeField] private GameObject enemySoundEffects;
+    [SerializeField] private GameObject soundEffects;
+    [SerializeField] private GameObject ambientSounds;
+    [SerializeField] private GameObject musicSounds;
+
+    [SerializeField] private AudioClip abientClip;
+    [SerializeField] private AudioClip musicClip;
     private int index = 0;
+
+    public bool playMusic = false;
+
+    private void Start()
+    {
+        PlayAmbientSounds();
+        if(playMusic)
+            PlayMusic();
+    }
+
+    public void PlayAmbientSounds()
+    {
+        AudioSource audioSource = Instantiate(ambientSounds, GameController.instance.character.transform.position, Quaternion.identity).GetComponent<AudioSource>();
+        audioSource.clip = abientClip;
+        audioSource.volume = 0.4f;
+        audioSource.Play();
+    }
+
+    public void PlayMusic()
+    {
+        AudioSource audioSource = Instantiate(musicSounds, GameController.instance.character.transform.position, Quaternion.identity).GetComponent<AudioSource>();
+        audioSource.clip = musicClip;
+        audioSource.volume = 0.5f;
+        audioSource.Play();
+    }
 
     public void PlaySoundEffectsInARow(AudioClip[] audioClips, Transform spawTransform, float volume)
     {
@@ -14,7 +45,7 @@ public class AudioManager : MonoBehaviour
         {
             index = 0;
         }
-        AudioSource audioSource = ObjectPoolManager.SpawnObject(soundEffect, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
+        AudioSource audioSource = ObjectPoolManager.SpawnObject(soundEffects, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
 
         audioSource.clip = audioClips[index];
         index++;
@@ -31,7 +62,7 @@ public class AudioManager : MonoBehaviour
     public void PlaySoundEffectsRandom(AudioClip[] audioClips, Transform spawTransform, float volume)
     {
         
-        AudioSource audioSource = ObjectPoolManager.SpawnObject(soundEffect, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
+        AudioSource audioSource = ObjectPoolManager.SpawnObject(enemySoundEffects, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
 
         int random = Random.Range(0, audioClips.Length);
 
@@ -48,7 +79,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySoundEffect(AudioClip audioClip, Transform spawTransform, float volume)
     {
-        AudioSource audioSource = ObjectPoolManager.SpawnObject(soundEffect, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
+        AudioSource audioSource = ObjectPoolManager.SpawnObject(soundEffects, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
 
         audioSource.clip = audioClip;
 

@@ -185,11 +185,12 @@ public class Enemy : MonoBehaviour
         StopTakingDamage();
         GetComponent<Animator>().SetTrigger(deathTrigger);
         rb.velocity = Vector3.zero;
-        GameObject xpOrb = ObjectPoolManager.SpawnObject(GameController.instance.xpOrb, xpDropPosition.position, Quaternion.identity, ObjectPoolManager.PoolType.None);
+        GameObject xpOrb = ObjectPoolManager.SpawnObject(GameController.instance.xpOrb, xpDropPosition.position, Quaternion.identity, ObjectPoolManager.PoolType.Xp);
         GameController.instance.levelManager.AddToOrbList(xpOrb.GetComponent<XPOrb>());
         GameController.instance.progressManager.gameCoins++;
         GameController.instance.uiManager.UpdateCoins();
-        GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.2zf);
+        if(deathAudio.Length > 0)
+            GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.15f);
         
         yield return new WaitForSeconds(waitDeath);
         if(!elite)

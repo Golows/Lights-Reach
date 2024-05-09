@@ -49,6 +49,7 @@ public class PlayerCharacter : MonoBehaviour
 
     public float damageReduction = 0;
 
+
     public void Start()
     {
         GameController.instance.progressManager.UpdateStatsFromProgress();
@@ -58,16 +59,22 @@ public class PlayerCharacter : MonoBehaviour
     {
         dead = false;
 
-        health = baseHealth + GameController.instance.progressManager.healthIncrease * playerProgress.healthUpgrade;
-        currentHealth = baseHealth + GameController.instance.progressManager.healthIncrease * playerProgress.healthUpgrade;
-        damage = baseDamage + GameController.instance.progressManager.damageIncrease * playerProgress.damageUpgrade;
-        attackSpeed = baseAttackSpeed + GameController.instance.progressManager.attackSpeedIncrease * playerProgress.attackSpeedUpgrade;
+        baseHealth = baseHealth + GameController.instance.progressManager.healthIncrease * playerProgress.healthUpgrade;
+        baseDamage = baseDamage + GameController.instance.progressManager.damageIncrease * playerProgress.damageUpgrade;
+        baseAttackSpeed = baseAttackSpeed + GameController.instance.progressManager.attackSpeedIncrease * playerProgress.attackSpeedUpgrade;
         basePickupRanage = basePickupRanage + GameController.instance.progressManager.pickupRangeIncrease * playerProgress.pickupRangeUpgrade;
-        moveSpeed = baseMoveSpeed + GameController.instance.progressManager.moveSpeedIncrease * playerProgress.moveSpeedUpgrade;
+        baseMoveSpeed = baseMoveSpeed + GameController.instance.progressManager.moveSpeedIncrease * playerProgress.moveSpeedUpgrade;
         critChance = critChance + GameController.instance.progressManager.critChangeIncrease * playerProgress.critChangeUpgrade;
         damageReduction = damageReduction + GameController.instance.progressManager.damageReductionIncrease * playerProgress.damageReductionUpgrade;
         healthRegen = healthRegen + GameController.instance.progressManager.healthRegenIncrease * playerProgress.healthRegenUpgrade;
-        dashCooldown = baseDashCooldown - GameController.instance.progressManager.dashCooldownDecrease * playerProgress.dashCooldownUpgrade;
+        baseDashCooldown = baseDashCooldown - GameController.instance.progressManager.dashCooldownDecrease * playerProgress.dashCooldownUpgrade;
+
+        dashCooldown = baseDashCooldown;
+        health = baseHealth;
+        currentHealth = baseHealth;
+        attackSpeed = baseAttackSpeed;
+        damage = baseDamage;
+        moveSpeed = baseMoveSpeed;
         dashSpeed = baseDashSpeed;
         dashTime = dashLenght / dashSpeed;
         critMultiplier = baseCritMultiplier;

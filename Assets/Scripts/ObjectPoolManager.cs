@@ -11,7 +11,8 @@ public class ObjectPoolManager : MonoBehaviour
     private static GameObject _enemiesEmpty;
     private static GameObject _audioEmpty;
     private static GameObject _abilitiesEmpty;
-    [SerializeField] private GameObject ui;
+    private static GameObject _xpEmpty;
+    private static GameObject _uiEmpty;
     private static GameObject _UIMain;
 
     public enum PoolType
@@ -20,6 +21,7 @@ public class ObjectPoolManager : MonoBehaviour
         Abilities,
         UI,
         Audio,
+        Xp,
         None
     }
 
@@ -43,7 +45,11 @@ public class ObjectPoolManager : MonoBehaviour
         _audioEmpty = new GameObject("Audio");
         _audioEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
 
-        _UIMain = ui;
+        _xpEmpty = new GameObject("XP");
+        _xpEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _uiEmpty = new GameObject("UI");
+        _uiEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
     }
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
@@ -112,10 +118,12 @@ public class ObjectPoolManager : MonoBehaviour
                 return _abilitiesEmpty;
             case PoolType.Enemies:
                 return _enemiesEmpty;
-            case PoolType.UI:
-                return _UIMain;
             case PoolType.Audio:
                 return _audioEmpty;
+            case PoolType.Xp:
+                return _xpEmpty;
+            case PoolType.UI:
+                return _uiEmpty;
             case PoolType.None:
                 return null;
             default:

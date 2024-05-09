@@ -13,15 +13,22 @@ public class Well : MonoBehaviour
 
     private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = GameController.instance.character.GetComponent<PlayerMovement>().playerInput;
+        playerInput.actions.FindAction("Interact").performed += Interact;
     }
 
-    private void OnInteract()
+    public void Interact(InputAction.CallbackContext context)
     {
         if (canStart)
         {
             levelLoader.LoadNextScene(1);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if(playerInput != null)
+            playerInput.actions.FindAction("Interact").performed -= Interact;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

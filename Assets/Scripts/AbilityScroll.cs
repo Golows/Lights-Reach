@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,18 +15,35 @@ public class AbilityScroll : MonoBehaviour
     private void Start()
     {
         upgradeManager = GameController.instance.upgradeManager;
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = GameController.instance.character.GetComponent<PlayerMovement>().playerInput;
+        playerInput.actions.FindAction("Interact").performed += Interact;
     }
 
     private void OnInteract()
     {
-        if(canCollect)
+        if(canCollect && !GameController.instance.upgradeManager.pickingPowers)
         {
             Time.timeScale = 0f;
             upgradeManager.GetAbilities();
             Destroy(gameObject);
         }
     }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (canCollect && !GameController.instance.upgradeManager.pickingPowers)
+        {
+            Time.timeScale = 0f;
+            upgradeManager.GetAbilities();
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDisable()
+    {
+        playerInput.actions.FindAction("Interact").performed -= Interact;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         text.SetActive(true);

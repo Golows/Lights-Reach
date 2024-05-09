@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7328819246192530518}
   - component: {fileID: 6142877322874113117}
+  - component: {fileID: 6461666286552541862}
+  - component: {fileID: 4730560382636396872}
   - component: {fileID: 7138472056458328213}
   - component: {fileID: 3907550319246601235}
   - component: {fileID: 3773442610113653878}
@@ -67,12 +69,49 @@ MonoBehaviour:
   damageDoneManager: {fileID: 7224241979895403677}
   progressManager: {fileID: 7879819642207270511}
   postProcessingManager: {fileID: 7982228381548328828}
+  soundMixerManager: {fileID: 6461666286552541862}
   audioManager: {fileID: 7138472056458328213}
   xpOrb: {fileID: 8020203196138307402, guid: 1a9f458fce2f119468e4e7df6297a723, type: 3}
   levelManager: {fileID: 833146533151028544}
   timeManager: {fileID: 3907550319246601235}
   UI: {fileID: 0}
+  actions: {fileID: -944628639613478452, guid: fd90af6dfbe9d5d46b789ed7b32a280c, type: 3}
   startingArea: 0
+--- !u!114 &6461666286552541862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531c5dc1379c9a2419271da85301564c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: c7d06e0645d4cbf4fbaa0edecd8636c3, type: 2}
+  masterSlider: {fileID: 0}
+  effectsSlider: {fileID: 0}
+  enemySlider: {fileID: 0}
+  musicSlider: {fileID: 0}
+  ambientSlider: {fileID: 0}
+--- !u!114 &4730560382636396872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955066728141078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5ec640c0041f14da7aa149ec5ede82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionDropdown: {fileID: 0}
+  fullScreenToggle: {fileID: 0}
+  vsyncToggle: {fileID: 0}
+  bloomToggle: {fileID: 0}
+  postProcess: {fileID: 0}
 --- !u!114 &7138472056458328213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,7 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e4a8680647e1f40ba67ced26b5c858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8054801783885202285, guid: b1fb37080a8976445ba056913c2cf672, type: 3}
+  enemySoundEffects: {fileID: 8054801783885202285, guid: b1fb37080a8976445ba056913c2cf672, type: 3}
+  soundEffects: {fileID: 8054801783885202285, guid: 560a55938ca0952478dcbfd0fcec6e27, type: 3}
+  ambientSounds: {fileID: 8054801783885202285, guid: 178ef5518c56de946b6a6a56f4fe79f2, type: 3}
+  musicSounds: {fileID: 8054801783885202285, guid: e7e4c59a9d541ff4780494ddd8510ba0, type: 3}
+  abientClip: {fileID: 8300000, guid: db42d199390cb2f41b799d9f925ec1c2, type: 3}
+  musicClip: {fileID: 8300000, guid: cdad990036c989a4d823ad6500a139fb, type: 3}
 --- !u!114 &3907550319246601235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +181,8 @@ MonoBehaviour:
   CardHealth: {fileID: 0}
   AbilityCardLightning: {fileID: 0}
   AbilityCardTornados: {fileID: 0}
+  pickingPowers: 0
+  pickingAbilities: 0
 --- !u!114 &2171707473209694157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +225,7 @@ MonoBehaviour:
   baseXpMult: 5
   baseXpAdd: 70
   afterMultiplyAdd: 0
+  levelUpAudio: {fileID: 0}
 --- !u!114 &1681482642921236822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +247,10 @@ MonoBehaviour:
   xpBar: {fileID: 0}
   hpBar: {fileID: 0}
   coins: {fileID: 0}
+  settingsMenue: {fileID: 0}
+  graphicsMenue: {fileID: 0}
+  soundsMenue: {fileID: 0}
+  keybindingsMenue: {fileID: 0}
   playerCharacter: {fileID: 0}
   playerMovement: {fileID: 0}
   levelLoader: {fileID: 0}
@@ -241,7 +292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2839cb506e84142861bd69ff38d489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 0}
 --- !u!114 &7982228381548328828
 MonoBehaviour:
   m_ObjectHideFlags: 0
