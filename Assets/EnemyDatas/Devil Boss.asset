@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Devil Boss
   m_EditorClassIdentifier: 
   enemyName: Velnias
-  health: 500000
+  health: 850000
   speed: 2.8
   attackRange: 0
   damage: 100

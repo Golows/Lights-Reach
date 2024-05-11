@@ -99,7 +99,7 @@ public class UpgradeManager : MonoBehaviour
         {
             powerCards.Add(CardAttackSpeed2);
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 9; i++)
         {
             powerCards.Add(CardPierce);
             powerCards.Add(CardFireballPlus);

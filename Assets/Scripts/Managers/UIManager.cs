@@ -50,6 +50,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeSurvived;
     [SerializeField] private TextMeshProUGUI enemiesKilled;
 
+    [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private TextMeshProUGUI fireDamageVictory;
+    [SerializeField] private TextMeshProUGUI lightningDamageVictory;
+    [SerializeField] private TextMeshProUGUI windDamageVictory;
+    [SerializeField] private TextMeshProUGUI totalDamageVictory;
+    [SerializeField] private TextMeshProUGUI enemiesKilledVictory;
+
     [SerializeField] private GameObject progressUi;
 
     public bool pogressUIOpen = false;
@@ -119,6 +126,22 @@ public class UIManager : MonoBehaviour
             totalDamage.text += (damageDone.fireballDamageDone + damageDone.lightningDamageDone + damageDone.tornadoDamageDone).ToString();
             timeSurvived.text += (9 - GameController.instance.timeManager.min).ToString() + ":" + (60 - GameController.instance.timeManager.sec).ToString();
             enemiesKilled.text += GameController.instance.progressManager.gameCoins.ToString();
+            died = true;
+        }
+    }
+
+    public void OnVicotryScreen()
+    {
+        if (!died)
+        {
+            victoryScreen.SetActive(true);
+            DamageDoneManager damageDone = GameController.instance.damageDoneManager;
+            fireDamageVictory.text += damageDone.fireballDamageDone.ToString();
+            lightningDamageVictory.text += damageDone.lightningDamageDone.ToString();
+            windDamageVictory.text += damageDone.tornadoDamageDone.ToString();
+            totalDamageVictory.text += (damageDone.fireballDamageDone + damageDone.lightningDamageDone + damageDone.tornadoDamageDone).ToString();
+            
+            enemiesKilledVictory.text += GameController.instance.progressManager.gameCoins.ToString();
             died = true;
         }
     }

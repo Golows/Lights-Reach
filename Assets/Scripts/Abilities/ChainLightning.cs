@@ -41,7 +41,7 @@ public class ChainLightning : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         enemy = collision.GetComponent<Enemy>();
-        if(!enemy.beenStruck)
+        if(enemy != null && !enemy.beenStruck)
         {
             if(singleHit !=0)
             {

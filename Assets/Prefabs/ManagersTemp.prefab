@@ -130,6 +130,7 @@ MonoBehaviour:
   musicSounds: {fileID: 8054801783885202285, guid: e7e4c59a9d541ff4780494ddd8510ba0, type: 3}
   abientClip: {fileID: 8300000, guid: db42d199390cb2f41b799d9f925ec1c2, type: 3}
   musicClip: {fileID: 8300000, guid: cdad990036c989a4d823ad6500a139fb, type: 3}
+  playMusic: 0
 --- !u!114 &3907550319246601235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +150,7 @@ MonoBehaviour:
   timeLeft7: 0
   timeLeft3: 0
   healthMultiplier: 1
+  healthMultiplierIncrease: 0.3
   min: 0
   sec: 0
 --- !u!114 &3773442610113653878
@@ -179,6 +181,7 @@ MonoBehaviour:
   CardFireballPlus: {fileID: 0}
   CardHealthRegen: {fileID: 0}
   CardHealth: {fileID: 0}
+  CardCurrentHealth: {fileID: 0}
   AbilityCardLightning: {fileID: 0}
   AbilityCardTornados: {fileID: 0}
   pickingPowers: 0
@@ -198,7 +201,9 @@ MonoBehaviour:
   bull: {fileID: 8623896217763991128, guid: 08ea47b3e0d6c90429fc6470aa746503, type: 3}
   kite: {fileID: 8068853932669687192, guid: 8958eef05fd5ddb4bab8c01120049094, type: 3}
   slime: {fileID: 5222795359672456917, guid: f0005370b76b3a043a954b3628c57b54, type: 3}
+  boss: {fileID: 7872697980976020396, guid: 05999d9fd0282584c9fd3fe97528b35f, type: 3}
   spawnTime: 0
+  spawEnemies: 1
   enemyCount: 0
   startedSpawningBull: 0
   startedSpawningSlime: 0
@@ -264,6 +269,14 @@ MonoBehaviour:
   totalDamage: {fileID: 0}
   timeSurvived: {fileID: 0}
   enemiesKilled: {fileID: 0}
+  victoryScreen: {fileID: 0}
+  fireDamageVictory: {fileID: 0}
+  lightningDamageVictory: {fileID: 0}
+  windDamageVictory: {fileID: 0}
+  totalDamageVictory: {fileID: 0}
+  enemiesKilledVictory: {fileID: 0}
+  progressUi: {fileID: 0}
+  pogressUIOpen: 0
 --- !u!114 &9207577906256716639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,4 +385,22 @@ MonoBehaviour:
   damageReductionIncrease: 0
   healthRegenIncrease: 0
   dashCooldownDecrease: 0
+  hpText: {fileID: 0}
+  dmgText: {fileID: 0}
+  asText: {fileID: 0}
+  pickupText: {fileID: 0}
+  msText: {fileID: 0}
+  critText: {fileID: 0}
+  dmgRedText: {fileID: 0}
+  hpRegenText: {fileID: 0}
+  dashCdText: {fileID: 0}
+  hpButton: {fileID: 0}
+  dmgButton: {fileID: 0}
+  asButton: {fileID: 0}
+  pickupButton: {fileID: 0}
+  msButton: {fileID: 0}
+  critButton: {fileID: 0}
+  dmgRedButton: {fileID: 0}
+  hpRegenButton: {fileID: 0}
+  dashCdButton: {fileID: 0}
   startingArea: 0

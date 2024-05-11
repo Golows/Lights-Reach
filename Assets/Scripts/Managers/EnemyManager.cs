@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject bull;
     [SerializeField] private GameObject kite;
     [SerializeField] private GameObject slime;
+    [SerializeField] private GameObject boss;
     [SerializeField] private float spawnTime;
     private WaitForSeconds waitTime;
 
@@ -68,6 +69,12 @@ public class EnemyManager : MonoBehaviour
             }
         }
         
+    }
+
+    public void SpawnBoss()
+    {
+        Transform playerTransform = GameController.instance.character.transform;
+        boss = Instantiate(boss, new Vector3(playerTransform.position.x + 11, playerTransform.position.y, playerTransform.position.z), Quaternion.identity);
     }
 
     private IEnumerator Every4Seconds()

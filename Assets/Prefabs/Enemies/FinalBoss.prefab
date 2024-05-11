@@ -240,6 +240,10 @@ MonoBehaviour:
   collectAllGem: {fileID: 0}
   deathAudio: []
   fireBeam: {fileID: 2686295038012189204, guid: 2fad673ef2ef51740adf467cd0e245cc, type: 3}
+  fireBeam1: {fileID: 0}
+  fireBeam2: {fileID: 0}
+  fireBeam3: {fileID: 0}
+  fireBeam4: {fileID: 0}
   animator: {fileID: 0}
   bullet: {fileID: 897165682673574363, guid: 6b28699728308f14daf577811844dadb, type: 3}
   bulletTransform: {fileID: 9132515539791282104, guid: 6b28699728308f14daf577811844dadb, type: 3}
@@ -277,9 +281,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02, y: -0.09}
+  m_Offset: {x: 0.02, y: -0.06}
   serializedVersion: 2
-  m_Radius: 0.68
+  m_Radius: 0.45
 --- !u!61 &432412977432144434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -302,7 +306,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16319
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 0

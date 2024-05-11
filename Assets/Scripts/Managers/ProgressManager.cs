@@ -42,6 +42,16 @@ public class ProgressManager : MonoBehaviour
 
     public bool startingArea = false;
 
+    private void Update()
+    {
+#if CHEAT
+        if (Input.GetKey(KeyCode.G))
+        {
+            gameCoins += 10000;
+        }
+#endif
+    }
+
     public void UpdateStatsFromProgress()
     {
         gameCoins = 0;

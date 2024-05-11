@@ -47,6 +47,7 @@ public class TimeManager : MonoBehaviour
         if (timeLeft <= 0 && GameController.instance.enemyManager.spawEnemies)
         {
             GameController.instance.enemyManager.spawEnemies = false;
+            GameController.instance.enemyManager.SpawnBoss();
             timeLeft = 0;
         }
 

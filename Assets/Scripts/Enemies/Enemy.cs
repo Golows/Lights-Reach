@@ -227,6 +227,8 @@ public class Enemy : MonoBehaviour
         }
         else if (boss)
         {
+            GameController.instance.uiManager.OnVicotryScreen();
+            GetComponent<Animator>().SetTrigger("FireBeam");
             Destroy(gameObject);
         }
     }

@@ -7,6 +7,7 @@ public class EnemyBullet : MonoBehaviour
 
     private GameObject player;
     private Rigidbody2D rb;
+    private string playerTag = "Player";
     public float speed;
 
     private void Start()
@@ -24,4 +25,12 @@ public class EnemyBullet : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag(playerTag))
+        {
+            GameController.instance.playerCharacter.TakeDamage(20f);
+        }
+    }
 }
