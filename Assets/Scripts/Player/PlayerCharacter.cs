@@ -128,6 +128,7 @@ public class PlayerCharacter : MonoBehaviour
     {
         animator.SetTrigger("Death");
         dead = true;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         yield return new WaitForSeconds(1.667f);
         Time.timeScale = 0f;
         GameController.instance.uiManager.OnDeathScreen();

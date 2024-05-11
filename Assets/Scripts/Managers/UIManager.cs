@@ -152,7 +152,8 @@ public class UIManager : MonoBehaviour
             inMenue = false;
             playerMovement.enabled = true;
             escapeMenue.SetActive(false);
-            progressUi.SetActive(false);
+            if(progressUi!=null)
+                progressUi.SetActive(false);
             pogressUIOpen = false;
         }    
     }

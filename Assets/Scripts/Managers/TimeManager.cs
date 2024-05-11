@@ -15,6 +15,7 @@ public class TimeManager : MonoBehaviour
     public bool timeLeft3 = false;
 
     public float healthMultiplier = 1;
+    public float healthMultiplierIncrease = 0.3f;
 
     public int min, sec;
 
@@ -43,8 +44,9 @@ public class TimeManager : MonoBehaviour
             sec = Mathf.FloorToInt((float)timeLeft % 60);
             timer.text = min.ToString() + ":" + sec.ToString();
         }
-        if (timeLeft < 0)
+        if (timeLeft <= 0 && GameController.instance.enemyManager.spawEnemies)
         {
+            GameController.instance.enemyManager.spawEnemies = false;
             timeLeft = 0;
         }
 
@@ -63,7 +65,7 @@ public class TimeManager : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(60f);
-            healthMultiplier += 0.3f;
+            healthMultiplier += healthMultiplierIncrease;
         }
     }
 }

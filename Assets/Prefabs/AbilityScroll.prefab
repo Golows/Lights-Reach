@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2958944551459047755}
+  arrow: {fileID: 1261024717832347350, guid: 99ec9e4361e52f545966b74b1ded52ff, type: 3}
 --- !u!1001 &2545410156632223025
 PrefabInstance:
   m_ObjectHideFlags: 0

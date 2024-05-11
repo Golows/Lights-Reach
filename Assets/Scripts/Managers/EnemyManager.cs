@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float spawnTime;
     private WaitForSeconds waitTime;
 
+    public bool spawEnemies = true;
+
     public int enemyCount;
 
     private int maxEnemies = 2;
@@ -70,7 +72,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator Every4Seconds()
     {
-        while (true)
+        while(spawEnemies)
         {
             maxEnemies++;
             yield return new WaitForSeconds(4f);
@@ -79,7 +81,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnBulls()
     {
-        while(true) 
+        while(spawEnemies) 
         {
             if(spawnersCount == 1)
             {
@@ -168,7 +170,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnKites()
     {
-        while (true)
+        while (spawEnemies)
         {
             if (spawnersCount == 3)
             {
@@ -205,7 +207,7 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnSlimes()
     {
-        while (true)
+        while (spawEnemies)
         {
             if (spawnersCount == 2)
             {

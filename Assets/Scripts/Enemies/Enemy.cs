@@ -26,7 +26,10 @@ public class Enemy : MonoBehaviour
     public float attackRange;
     public float damage;
     private PlayerCharacter playerCharacter;
-    public bool elite = false;  
+    public bool elite = false;
+    public bool boss = false;
+
+    public GameObject collectAllGem;
 
     [SerializeField] AudioClip[] deathAudio;
     
@@ -48,7 +51,7 @@ public class Enemy : MonoBehaviour
         player = GameController.instance.character.GetComponent<Transform>();
         playerCharacter = GameController.instance.playerCharacter;
         playerMovement = GameController.instance.character.GetComponent<PlayerMovement>();
-        if(!elite)
+        if(!elite && !boss)
         {
             maxHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
             currentHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
@@ -56,6 +59,14 @@ public class Enemy : MonoBehaviour
             attackRange = enemyData.attackRange;
             damage = enemyData.damage;
         }
+        if(boss)
+        {
+            maxHealth = enemyData.health;
+            currentHealth = maxHealth;
+            moveSpeed = enemyData.speed;
+            damage = enemyData.damage;
+        }
+
         waitDeath = 1.455f;
     }
 
@@ -64,24 +75,28 @@ public class Enemy : MonoBehaviour
         isFlipped = false;
         GetComponent<Animator>().ResetTrigger(deathTrigger);
         GetComponent<BoxCollider2D>().enabled = true;
-        maxHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
-        currentHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
+        if(!boss)
+        {
+            maxHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
+            currentHealth = enemyData.health * GameController.instance.timeManager.healthMultiplier;
+        }
+        
     }
 
     public virtual void FixedUpdate()
     {
-        SortingLevel(5,2);
+        SortingLevel(5, 2);
         TeleportToPlayerDirection();
     }
 
     private bool RandomBoolean()
-{
-    if (Random.value >= 0.5)
     {
-        return true;
-    }
-    return false;
-}
+        if (Random.value >= 0.5)
+            {
+                return true;
+            }
+        return false;
+    }   
 
     public void SortingLevel(int layer1, int layer2)
     {
@@ -94,6 +109,7 @@ public class Enemy : MonoBehaviour
         {
             spriteRenderer.sortingOrder = layer2;
         }
+
     }
 
     public void UpdateHealthBar()
@@ -193,14 +209,24 @@ public class Enemy : MonoBehaviour
             GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.15f);
         
         yield return new WaitForSeconds(waitDeath);
-        if(!elite)
+
+        if (Random.value < 0.0013)
+        {
+            Instantiate(collectAllGem, transform.position, Quaternion.identity);
+        }
+
+        if (!elite)
         {
             GameController.instance.enemyManager.enemyCount--;
             ObjectPoolManager.RemoveObjectToPool(gameObject);
         }
-        else
+        else if(elite && !boss)
         {
             Instantiate(scroll, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        else if (boss)
+        {
             Destroy(gameObject);
         }
     }

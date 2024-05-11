@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facingRight: 1
   movingUp: 0
+  dashOnCd: 0
   characterRB: {fileID: -2252021649076582193}
   character: {fileID: -3154213623617725368}
   characterTransform: {fileID: 4954211527030999608}

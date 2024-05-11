@@ -28,7 +28,7 @@ public class UpgradeManager : MonoBehaviour
     //Stat card prefabs
     [SerializeField] private GameObject CardDamage1, CardDamage2, CardAttackSpeed1, CardAttackSpeed2,
                                         CardDamageReduction, CardMoveSpeed, CardCritChance, CardPierce,
-                                        CardCritMulti, CardFireballPlus, CardHealthRegen, CardHealth;
+                                        CardCritMulti, CardFireballPlus, CardHealthRegen, CardHealth, CardCurrentHealth;
     [SerializeField] private GameObject AbilityCardLightning, AbilityCardTornados;
 
     private List<GameObject> powerCards = new List<GameObject>();
@@ -93,6 +93,7 @@ public class UpgradeManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             powerCards.Add(CardDamage2);
+            utilityCards.Add(CardCurrentHealth);
         }
         for (int i = 0; i < 3; i++)
         {
@@ -210,6 +211,21 @@ public class UpgradeManager : MonoBehaviour
                 }
             }
         }
+        RemoveCards();
+        pickingPowers = false;
+    }
+
+    public void CurrentHealthIncrease(float increase)
+    {
+        if(playerCharacter.currentHealth + increase <= playerCharacter.health)
+        {
+            playerCharacter.currentHealth += increase;
+        }
+        else
+        {
+            playerCharacter.currentHealth += playerCharacter.health - playerCharacter.currentHealth;
+        }
+        GameController.instance.uiManager.UpdateHealth();
         RemoveCards();
         pickingPowers = false;
     }

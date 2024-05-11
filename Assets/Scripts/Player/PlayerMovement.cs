@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     public bool facingRight = true;
     public bool movingUp = false;
+    public bool dashOnCd = false;
     private string walkingBool = "Walking";
 
 
@@ -59,26 +60,6 @@ public class PlayerMovement : MonoBehaviour
             ProcessInputs();
         }
     }
-
-    //private void OnMovement(InputValue inputValue)
-    //{
-    //    if(!isDashing)
-    //    {
-    //        moveDirection = inputValue.Get<Vector2>();
-    //        moveX = moveDirection.x;
-    //        moveY = moveDirection.y;
-    //        if (moveX > 0 && !facingRight)
-    //        {
-    //            Flip();
-    //        }
-    //        if (moveX < 0 && facingRight)
-    //        {
-    //            Flip();
-    //        }
-    //        ProcessInputs();
-    //    }
-        
-    //}
 
     private void FixedUpdate()
     {
@@ -148,7 +129,9 @@ public class PlayerMovement : MonoBehaviour
         
         yield return new WaitForSeconds(character.dashTime);
         isDashing = false;
+        dashOnCd = true;
         yield return new WaitForSeconds(character.dashCooldown);
+        dashOnCd = false;
         canDash = true;
     }
 }

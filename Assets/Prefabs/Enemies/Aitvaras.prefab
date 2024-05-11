@@ -328,6 +328,8 @@ MonoBehaviour:
   attackRange: 0
   damage: 0
   elite: 0
+  collectAllGem: {fileID: 1097016578640892455, guid: d61d062dd83c21c4fb04768b70b30b2d, type: 3}
+  deathAudio: []
   shadow: {fileID: 700563542758602165}
 --- !u!1001 &8461936655565482337
 PrefabInstance:

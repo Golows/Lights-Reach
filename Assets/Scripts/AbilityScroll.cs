@@ -12,21 +12,16 @@ public class AbilityScroll : MonoBehaviour
     private UpgradeManager upgradeManager;
     private PlayerInput playerInput;
 
+    public GameObject arrow;
+
     private void Start()
     {
         upgradeManager = GameController.instance.upgradeManager;
         playerInput = GameController.instance.character.GetComponent<PlayerMovement>().playerInput;
         playerInput.actions.FindAction("Interact").performed += Interact;
-    }
 
-    private void OnInteract()
-    {
-        if(canCollect && !GameController.instance.upgradeManager.pickingPowers)
-        {
-            Time.timeScale = 0f;
-            upgradeManager.GetAbilities();
-            Destroy(gameObject);
-        }
+        arrow = Instantiate(arrow, GameController.instance.character.transform.position, Quaternion.identity);
+        arrow.GetComponent<ArrowPointer>().targetPos = transform.position;
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -35,13 +30,15 @@ public class AbilityScroll : MonoBehaviour
         {
             Time.timeScale = 0f;
             upgradeManager.GetAbilities();
+            Destroy(arrow);
             Destroy(gameObject);
         }
     }
 
     private void OnDisable()
     {
-        playerInput.actions.FindAction("Interact").performed -= Interact;
+        if(playerInput != null)
+            playerInput.actions.FindAction("Interact").performed -= Interact;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
