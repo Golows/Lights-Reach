@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
     public GameObject collectAllGem;
 
-    [SerializeField] AudioClip[] deathAudio;
+    [SerializeField] private AudioClip[] deathAudio;
     
     public enum DamageType
     {

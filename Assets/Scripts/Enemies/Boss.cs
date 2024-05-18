@@ -7,7 +7,6 @@ public class Boss : Enemy
 {
     private string playerTag = "Player";
     private bool inRange = false;
-    private float angle = 0;
 
     public GameObject fireBeam;
     
@@ -32,7 +31,7 @@ public class Boss : Enemy
     private int bulletsCount = 0;
 
 
-    private void Start()
+    public override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
