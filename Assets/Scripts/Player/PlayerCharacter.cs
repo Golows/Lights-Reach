@@ -20,9 +20,9 @@ public class PlayerCharacter : MonoBehaviour
     [NonSerialized] public float dashCooldown;
 
     [SerializeField] private float baseDashSpeed;
-    [NonSerialized] public float dashSpeed;
+    [SerializeField] public float dashSpeed;
 
-    [NonSerialized] public float dashTime;
+    [SerializeField] public float dashTime;
     [SerializeField] public float dashLenght = 3f;
 
     [SerializeField] public float baseHealth;

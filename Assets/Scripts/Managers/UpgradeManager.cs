@@ -7,8 +7,8 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     private PlayerCharacter playerCharacter;
-    [SerializeField] private float scalingMoveSpeedMax;
-    [SerializeField] private float moveSpeedScaler;
+    [SerializeField] private float scalingMoveSpeedMax = 36f;
+    [SerializeField] private float moveSpeedScaler = 1.42f;
     private AbilityManager abilityManager;
     private float scalingMoveSpeed;
 

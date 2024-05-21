@@ -154,7 +154,8 @@ MonoBehaviour:
   moveSpeed: 0
   dead: 0
   baseDashCooldown: 2
-  baseDashSpeed: 25
+  baseDashSpeed: 18
+  dashTime: 0
   dashLenght: 3
   baseHealth: 200
   baseHealthRegen: 0.2
@@ -180,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c263f1607309e154298a1aa500ce20ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashing: 0
   facingRight: 1
   movingUp: 0
   dashOnCd: 0

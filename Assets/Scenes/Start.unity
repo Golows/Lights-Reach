@@ -12748,7 +12748,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1141916643873707860, guid: 20d91cfe9271dfd44af0c74e6e6a0b9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29
+      value: 0.91
       objectReference: {fileID: 0}
     - target: {fileID: 1141916643873707860, guid: 20d91cfe9271dfd44af0c74e6e6a0b9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14120,6 +14120,12 @@ MonoBehaviour:
   totalDamage: {fileID: 0}
   timeSurvived: {fileID: 0}
   enemiesKilled: {fileID: 0}
+  victoryScreen: {fileID: 0}
+  fireDamageVictory: {fileID: 0}
+  lightningDamageVictory: {fileID: 0}
+  windDamageVictory: {fileID: 0}
+  totalDamageVictory: {fileID: 0}
+  enemiesKilledVictory: {fileID: 0}
   progressUi: {fileID: 1332214668}
   pogressUIOpen: 0
 --- !u!4 &1334161423
@@ -14248,6 +14254,7 @@ MonoBehaviour:
   CardFireballPlus: {fileID: 0}
   CardHealthRegen: {fileID: 0}
   CardHealth: {fileID: 0}
+  CardCurrentHealth: {fileID: 0}
   AbilityCardLightning: {fileID: 0}
   AbilityCardTornados: {fileID: 0}
   pickingPowers: 0

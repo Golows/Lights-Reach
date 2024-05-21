@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private float moveX, moveY;
     private Vector2 moveDirection;
     private bool canDash = true;
-    private bool isDashing;
+    
+    public bool isDashing;
     public bool facingRight = true;
     public bool movingUp = false;
     public bool dashOnCd = false;
@@ -17,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] private Rigidbody2D characterRB;
-    [SerializeField] private PlayerCharacter character;
+    [SerializeField] public PlayerCharacter character;
     [SerializeField] private Transform characterTransform;
     [SerializeField] private Transform shadowTransform;
     [SerializeField] private Animator animator;
@@ -26,17 +28,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        
+        characterRB = GetComponent<Rigidbody2D>();
     }
-
-    //private void OnDash()
-    //{
-        
-    //}
 
     public void PerformDash()
     {
-        if (canDash)
+        if(canDash)
         {
             StartCoroutine(Dash());
         }
@@ -67,7 +64,8 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        Move();
+        else
+            Move();
 
     }
 
@@ -111,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        //Debug.Log(character.dashCooldown);
         canDash = false;
         isDashing = true;
 
@@ -126,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         {
             characterRB.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * character.dashSpeed;
         }
+        if(character.transform.position  == character.transform.position)
         
         yield return new WaitForSeconds(character.dashTime);
         isDashing = false;

@@ -7,27 +7,19 @@ public static class SaveSystem
 {
     public static void SaveProgress(PlayerProgress progress)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/progress.save";
-
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        PlayerProgress data = progress;
-
-        formatter.Serialize(stream, data);
-        stream.Close();
+        string path = Application.persistentDataPath + "/progress.json";
+        string data = JsonUtility.ToJson(progress);
+        File.WriteAllText(path, data);
     }
 
     public static PlayerProgress LoadProgress()
     {
-        string path = Application.persistentDataPath + "/progress.save";
+        string path = Application.persistentDataPath + "/progress.json";
 
         if(File.Exists(path)) 
         {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-            PlayerProgress data =  binaryFormatter.Deserialize(stream) as PlayerProgress;
-            stream.Close();
+            string readData = File.ReadAllText(path);
+            PlayerProgress data = JsonUtility.FromJson<PlayerProgress>(readData);
             return data;
         }
         else
@@ -39,7 +31,7 @@ public static class SaveSystem
 
     public static bool FileExists()
     {
-        string path = Application.persistentDataPath + "/progress.save";
+        string path = Application.persistentDataPath + "/progress.json";
         if( File.Exists(path) )
         {
             return true;

@@ -206,7 +206,7 @@ public class Enemy : MonoBehaviour
         GameController.instance.progressManager.gameCoins++;
         GameController.instance.uiManager.UpdateCoins();
         if(deathAudio.Length > 0)
-            GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.15f);
+            GameController.instance.audioManager.PlaySoundEffectsRandom(deathAudio, transform, 0.5f);
         
         yield return new WaitForSeconds(waitDeath);
 

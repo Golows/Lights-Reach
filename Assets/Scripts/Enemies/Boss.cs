@@ -34,6 +34,7 @@ public class Boss : Enemy
     public override void Start()
     {
         base.Start();
+        isFlipped = true;
         animator = GetComponent<Animator>();
         StartCoroutine(BossFight());
 
