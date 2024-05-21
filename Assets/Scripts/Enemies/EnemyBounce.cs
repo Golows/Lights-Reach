@@ -7,7 +7,6 @@ public class EnemyBounce : StateMachineBehaviour
 {
     private Rigidbody2D rb;
     private EnemySlime enemy;
-    private EnemyData enemyData;
 
     private Transform charcterPosition;
 
@@ -26,7 +25,6 @@ public class EnemyBounce : StateMachineBehaviour
         charcterPosition = GameController.instance.character.GetComponent<Transform>();
         rb = animator.GetComponent<Rigidbody2D>();
         enemy = animator.GetComponent<EnemySlime>();
-        enemyData = enemy.enemyData;
 
         offsetX = Random.Range(0, directionX.Length);
         offsetY = Random.Range(0, directionY.Length);
@@ -40,31 +38,37 @@ public class EnemyBounce : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemy.Flip();       
+
+        if(Time.timeScale < 0.1f)
+        {
+            return;
+        }
+
+        enemy.Flip();
 
         if (currentLocationX > 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(-1, -1, 0) * enemyData.speed);
+            rb.velocity = new Vector3(-1, -1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX < 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(1, 1, 0) * enemyData.speed);
+            rb.velocity = new Vector3(1, 1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX > 0 && currentLocationY < 0)
         {
-            rb.AddForce(new Vector3(-1, 1, 0) * enemyData.speed);
+            rb.velocity = new Vector3(-1, 1, 0).normalized * enemy.moveSpeed;
         }
         else if (currentLocationX < 0 && currentLocationY > 0)
         {
-            rb.AddForce(new Vector3(1, -1, 0) * enemyData.speed);
+            rb.velocity = new Vector3(1, -1, 0).normalized * enemy.moveSpeed;
         }
-
-
 
         if (Time.time >= nextTime)
         {
             rb.velocity = Vector3.zero;
             animator.SetTrigger(jumpTrigger);
+
+            
         }
     }
 

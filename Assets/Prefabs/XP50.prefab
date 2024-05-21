@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,8 +166,22 @@ MonoBehaviour:
   collected: 0
   index: 0
   speed: 13
+  xpAmount: 50
   lightAura: {fileID: 3072485185686729180}
   distanceToCollect: 0.5
+  minMultiplier: 0.85
+  maxMultiplier: 1.15
+  audioClips:
+  - {fileID: 8300000, guid: ba299bd7239458b42abb0ae9783e017f, type: 3}
+  - {fileID: 8300000, guid: cb847227a2496174fb822c292f57cfb9, type: 3}
+  - {fileID: 8300000, guid: 8c44ec934cd466746b4f199de2b622b0, type: 3}
+  - {fileID: 8300000, guid: 1f88b8f021ceefb4fb451422a333b376, type: 3}
+  - {fileID: 8300000, guid: a5b225450d492864aa6ae549655f6f5a, type: 3}
+  - {fileID: 8300000, guid: ebb5e4adc8093bb4792b427263cd13a0, type: 3}
+  - {fileID: 8300000, guid: b422500dfd403e74887af69b21e63411, type: 3}
+  - {fileID: 8300000, guid: 6ae434c0c912ff742bc1db666c98503b, type: 3}
+  - {fileID: 8300000, guid: 72ffcb031ecadb347ab394e7aba898d7, type: 3}
+  - {fileID: 8300000, guid: 4da43e11155512849bb2d3a6eabe965e, type: 3}
 --- !u!114 &3072485185686729180
 MonoBehaviour:
   m_ObjectHideFlags: 0

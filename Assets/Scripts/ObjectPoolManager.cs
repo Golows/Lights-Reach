@@ -9,14 +9,19 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject _objectPoolEmptyHolder;
     private static GameObject _enemiesEmpty;
+    private static GameObject _audioEmpty;
     private static GameObject _abilitiesEmpty;
-    private static GameObject _UIEmpty;
+    private static GameObject _xpEmpty;
+    private static GameObject _uiEmpty;
+    private static GameObject _UIMain;
 
     public enum PoolType
     {
         Enemies,
         Abilities,
         UI,
+        Audio,
+        Xp,
         None
     }
 
@@ -37,8 +42,14 @@ public class ObjectPoolManager : MonoBehaviour
         _enemiesEmpty = new GameObject("Pooled Enemies");
         _enemiesEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
 
-        _UIEmpty = new GameObject("Pooled UI");
-        _UIEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        _audioEmpty = new GameObject("Audio");
+        _audioEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _xpEmpty = new GameObject("XP");
+        _xpEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+
+        _uiEmpty = new GameObject("UI");
+        _uiEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
     }
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
@@ -107,8 +118,12 @@ public class ObjectPoolManager : MonoBehaviour
                 return _abilitiesEmpty;
             case PoolType.Enemies:
                 return _enemiesEmpty;
+            case PoolType.Audio:
+                return _audioEmpty;
+            case PoolType.Xp:
+                return _xpEmpty;
             case PoolType.UI:
-                return _UIEmpty;
+                return _uiEmpty;
             case PoolType.None:
                 return null;
             default:

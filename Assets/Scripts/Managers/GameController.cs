@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
@@ -15,10 +16,21 @@ public class GameController : MonoBehaviour
     public AbilityManager abilityManager;
     public Spawner spawner;
     public UIManager uiManager;
+    public StatueManager statueManager;
+    public DamageDoneManager damageDoneManager;
+    public ProgressManager progressManager;
+    public PostProcessingManager postProcessingManager;
+    public SoundMixerManager soundMixerManager;
+    public AudioManager audioManager;
     [NonSerialized] public PlayerCharacter playerCharacter;
     [NonSerialized] public Transform playerTransform;
     public GameObject xpOrb;
     public LevelManager levelManager;
+    public TimeManager timeManager;
+    public GameObject UI;
+    public InputActionAsset actions;
+
+    public bool startingArea = false;
 
     private void Awake()
     {
@@ -26,7 +38,12 @@ public class GameController : MonoBehaviour
         character = Instantiate(character, new Vector3(0, 0, 0), Quaternion.identity);
         playerCharacter = character.GetComponent<PlayerCharacter>();
         playerTransform = character.transform;
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 144;
+        Time.timeScale = 1f;
+
+        var rebinds = PlayerPrefs.GetString("rebinds");
+        if (!string.IsNullOrEmpty(rebinds))
+        {
+            actions.LoadBindingOverridesFromJson(rebinds);
+        } 
     }
 }

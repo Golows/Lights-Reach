@@ -1,45 +1,60 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     private float moveX, moveY;
     private Vector2 moveDirection;
     private bool canDash = true;
-    private bool isDashing;
+    
+    public bool isDashing;
     public bool facingRight = true;
     public bool movingUp = false;
+    public bool dashOnCd = false;
     private string walkingBool = "Walking";
 
 
     [SerializeField] private Rigidbody2D characterRB;
-    [SerializeField] private PlayerCharacter character;
+    [SerializeField] public PlayerCharacter character;
     [SerializeField] private Transform characterTransform;
     [SerializeField] private Transform shadowTransform;
     [SerializeField] private Animator animator;
 
+    public PlayerInput playerInput;
 
-    void Update()
+    private void Start()
     {
-        if(isDashing)
-        {
-            return;
-        }
-        ProcessInputs();
-        
-        if(Input.GetKeyDown(KeyCode.Space) && canDash)
+        characterRB = GetComponent<Rigidbody2D>();
+    }
+
+    public void PerformDash()
+    {
+        if(canDash)
         {
             StartCoroutine(Dash());
         }
+    }
 
-        if(moveX > 0 && !facingRight)
+    public void PerformMovement(InputAction.CallbackContext context)
+    {
+        if (!isDashing)
         {
-            Flip();
-        }
-        if(moveX < 0 && facingRight)
-        {
-            Flip();
+            moveDirection = context.ReadValue<Vector2>();
+            moveX = moveDirection.x;
+            moveY = moveDirection.y;
+            if (moveX > 0 && !facingRight)
+            {
+                Flip();
+            }
+            if (moveX < 0 && facingRight)
+            {
+                Flip();
+            }
+            ProcessInputs();
         }
     }
 
@@ -49,13 +64,13 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        Move();
+        else
+            Move();
+
     }
 
     private void ProcessInputs()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
         if(moveY > 0)
         {
             movingUp = true;
@@ -73,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool(walkingBool, false);
         }
-        moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
     private void Move()
@@ -95,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Dash()
     {
+        //Debug.Log(character.dashCooldown);
         canDash = false;
         isDashing = true;
 
@@ -110,10 +125,13 @@ public class PlayerMovement : MonoBehaviour
         {
             characterRB.velocity = new Vector2(moveDirection.x, moveDirection.y).normalized * character.dashSpeed;
         }
+        if(character.transform.position  == character.transform.position)
         
         yield return new WaitForSeconds(character.dashTime);
         isDashing = false;
+        dashOnCd = true;
         yield return new WaitForSeconds(character.dashCooldown);
+        dashOnCd = false;
         canDash = true;
     }
 }

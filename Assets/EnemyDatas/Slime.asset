@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   enemyName: Vandenelis
-  health: 20
-  speed: 2
+  health: 71
+  speed: 4
   attackRange: 0
-  damage: 4
+  damage: 8
