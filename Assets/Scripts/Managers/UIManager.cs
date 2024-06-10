@@ -150,7 +150,9 @@ public class UIManager : MonoBehaviour
     {
         deathScreen.SetActive(false);
         Time.timeScale = 1f;
+        GameController.instance.progressManager.SaveCoinProgress();
         levelLoader.LoadAfterDeath(0);
+        
     }
 
     public void ExitGame()
