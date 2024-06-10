@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
 
     public bool playMusic = false;
 
+    public int maxEffect = 0;
+
     private void Start()
     {
         PlayAmbientSounds();
@@ -41,7 +43,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySoundEffectsInARow(AudioClip[] audioClips, Transform spawTransform, float volume)
     {
-        if(index == audioClips.Length)
+        if (index == audioClips.Length)
         {
             index = 0;
         }
@@ -56,25 +58,30 @@ public class AudioManager : MonoBehaviour
 
         float clipLenght = audioSource.clip.length;
 
-        StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject));
+            
+
+        StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject, false));
     }
 
     public void PlaySoundEffectsRandom(AudioClip[] audioClips, Transform spawTransform, float volume)
     {
-        
-        AudioSource audioSource = ObjectPoolManager.SpawnObject(enemySoundEffects, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
+        if(maxEffect < 4)
+        {
+            AudioSource audioSource = ObjectPoolManager.SpawnObject(enemySoundEffects, spawTransform.position, Quaternion.identity, ObjectPoolManager.PoolType.Audio).GetComponent<AudioSource>();
 
-        int random = Random.Range(0, audioClips.Length);
+            int random = Random.Range(0, audioClips.Length);
 
-        audioSource.clip = audioClips[random];
+            audioSource.clip = audioClips[random];
 
-        audioSource.volume = volume;
+            audioSource.volume = volume;
 
-        audioSource.Play();
+            audioSource.Play();
+            maxEffect++;
 
-        float clipLenght = audioSource.clip.length;
+            float clipLenght = audioSource.clip.length;
 
-        StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject));
+            StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject, true));
+        }
     }
 
     public void PlaySoundEffect(AudioClip audioClip, Transform spawTransform, float volume)
@@ -89,12 +96,16 @@ public class AudioManager : MonoBehaviour
 
         float clipLenght = audioSource.clip.length;
 
-        StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject));
+        StartCoroutine(RemoveObject(clipLenght, audioSource.gameObject, false));
     }
 
-    IEnumerator RemoveObject(float waitTime, GameObject objectToRemove)
+    IEnumerator RemoveObject(float waitTime, GameObject objectToRemove, bool isEffect)
     {
         yield return new WaitForSeconds(waitTime);
+        if(isEffect)
+        {
+            maxEffect--;
+        }
         ObjectPoolManager.RemoveObjectToPool(objectToRemove);
         yield break;
     }
